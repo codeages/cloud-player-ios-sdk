@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="U0p-0E-bpP">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="wQg-tq-qST">
+            <objects>
+                <viewController id="whP-gf-Uak" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J1b-pC-5E7">
+                                <rect key="frame" x="87.5" y="183.5" width="200" height="300"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNu-ic-Jab">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="视频">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="wMW-de-klH" kind="show" id="4b8-J9-XMI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fT-Hn-8B2">
+                                        <rect key="frame" x="0.0" y="80" width="200" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="音频">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="vbx-2Y-aI1" kind="show" id="okR-di-k3V"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oH5-fX-A5r">
+                                        <rect key="frame" x="0.0" y="160" width="200" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="ppt">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="DbO-iS-BG2" kind="show" id="W8Z-SB-Opi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVq-M1-9p9">
+                                        <rect key="frame" x="0.0" y="240" width="200" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="文档">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="dDk-j8-q6G" kind="show" id="B5p-zZ-lPm"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="65U-Z2-4r3"/>
+                                    <constraint firstAttribute="width" constant="200" id="yKP-jv-akC"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="J1b-pC-5E7" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="ld2-uy-vEV"/>
+                            <constraint firstItem="J1b-pC-5E7" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="rNX-xg-VPK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="EKd-Ez-yFR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="190" y="-455"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="64A-gQ-OxR">
+            <objects>
+                <viewController id="DbO-iS-BG2" customClass="QPPPTViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tDM-ep-SVl"/>
+                        <viewControllerLayoutGuide type="bottom" id="njb-h2-ils"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kMj-7r-pRs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nJ-5h-DZK">
+                                <rect key="frame" x="0.0" y="44" width="375" height="211"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6nJ-5h-DZK" secondAttribute="height" multiplier="16:9" id="Typ-vR-SPb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6nJ-5h-DZK" secondAttribute="trailing" id="3hv-DC-dj7"/>
+                            <constraint firstItem="6nJ-5h-DZK" firstAttribute="leading" secondItem="kMj-7r-pRs" secondAttribute="leading" id="Tzs-Ay-Vvg"/>
+                            <constraint firstItem="6nJ-5h-DZK" firstAttribute="top" secondItem="tDM-ep-SVl" secondAttribute="bottom" id="ul6-mC-qeK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SoU-cF-7Az">
+                        <rightBarButtonItems>
+                            <barButtonItem id="tJO-qY-h9Q"/>
+                            <barButtonItem title="下一页" id="nYg-dw-DhY">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="nextPage:" destination="DbO-iS-BG2" id="wJd-lv-agw"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="上一页" id="WfX-vz-r9N">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="prePage:" destination="DbO-iS-BG2" id="R5L-gz-hbV"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="6nJ-5h-DZK" id="l4j-oR-tGT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qf6-BI-Ub8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="766" y="-47"/>
+        </scene>
+        <!--Video View Controller-->
+        <scene sceneID="K36-zU-gGL">
+            <objects>
+                <viewController id="wMW-de-klH" customClass="QPVideoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n9W-KZ-i0g"/>
+                        <viewControllerLayoutGuide type="bottom" id="yWd-pH-bq0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ypo-iz-hlj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBA-Px-ttL">
+                                <rect key="frame" x="0.0" y="44" width="375" height="211"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="fBA-Px-ttL" secondAttribute="height" multiplier="16/9" id="hfi-N1-SvM"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aND-U0-Fs3">
+                                <rect key="frame" x="37.5" y="316.5" width="300" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FsO-6s-pCE">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="play"/>
+                                        <state key="selected" image="VideoPauseIcon"/>
+                                        <connections>
+                                            <action selector="pauseClick:" destination="wMW-de-klH" eventType="touchUpInside" id="fmT-L3-IAj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Tx-9q-aOj">
+                                        <rect key="frame" x="100" y="0.0" width="100" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="停止"/>
+                                        <connections>
+                                            <action selector="stopClick:" destination="wMW-de-klH" eventType="touchUpInside" id="uxC-OO-eaa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekY-os-DPC">
+                                        <rect key="frame" x="200" y="0.0" width="100" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" image="pause">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="playClick:" destination="wMW-de-klH" eventType="touchUpInside" id="t0g-cx-z89"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="WMs-9z-8fE"/>
+                                </constraints>
+                            </stackView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" progressImage="VideoPauseIcon" trackImage="VideoPlayIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nz2-Z7-7ht">
+                                <rect key="frame" x="64" y="293" width="256" height="2"/>
+                                <color key="progressTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="trackTintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdU-6U-GSd">
+                                <rect key="frame" x="24" y="279" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="3o8-0v-UuY"/>
+                                    <constraint firstAttribute="height" constant="30" id="X9l-s2-pSf"/>
+                                </constraints>
+                                <state key="normal" title="-5">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sub:" destination="wMW-de-klH" eventType="touchUpInside" id="xXD-A4-J02"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pff-8B-6XG">
+                                <rect key="frame" x="330" y="279" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="IcA-bh-sex"/>
+                                    <constraint firstAttribute="width" constant="30" id="VoX-c2-iYU"/>
+                                </constraints>
+                                <state key="normal" title="+5">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="add:" destination="wMW-de-klH" eventType="touchUpInside" id="z9R-op-9Oz"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="x20-6t-VKh">
+                                <rect key="frame" x="37.5" y="360.5" width="100" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kd2-wg-eqX">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="水印">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showWatermark" destination="wMW-de-klH" eventType="touchUpInside" id="XAm-kN-ycV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EL2-Wc-5Mc">
+                                        <rect key="frame" x="50" y="0.0" width="50" height="34"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="指纹">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showFingerprint" destination="wMW-de-klH" eventType="touchUpInside" id="VTd-m2-pKe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="dWi-N8-Vbb"/>
+                                    <constraint firstAttribute="height" constant="34" id="dru-4F-nXa"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Pff-8B-6XG" firstAttribute="leading" secondItem="nz2-Z7-7ht" secondAttribute="trailing" constant="10" id="8Td-yK-fq7"/>
+                            <constraint firstAttribute="trailing" secondItem="fBA-Px-ttL" secondAttribute="trailing" id="8Xc-Lh-6fJ"/>
+                            <constraint firstItem="hdU-6U-GSd" firstAttribute="leading" secondItem="Ypo-iz-hlj" secondAttribute="leading" constant="24" id="BFJ-tm-kJ8"/>
+                            <constraint firstItem="aND-U0-Fs3" firstAttribute="top" secondItem="Pff-8B-6XG" secondAttribute="bottom" constant="7.5" id="NdA-ZN-7h4"/>
+                            <constraint firstItem="nz2-Z7-7ht" firstAttribute="centerY" secondItem="hdU-6U-GSd" secondAttribute="centerY" id="Q77-hX-EbG"/>
+                            <constraint firstItem="aND-U0-Fs3" firstAttribute="centerY" secondItem="Ypo-iz-hlj" secondAttribute="centerY" id="QLc-rl-n4F"/>
+                            <constraint firstAttribute="trailing" secondItem="Pff-8B-6XG" secondAttribute="trailing" constant="15" id="Rbt-sk-wmP"/>
+                            <constraint firstItem="fBA-Px-ttL" firstAttribute="top" secondItem="n9W-KZ-i0g" secondAttribute="bottom" id="TEV-SD-GcS"/>
+                            <constraint firstItem="fBA-Px-ttL" firstAttribute="leading" secondItem="Ypo-iz-hlj" secondAttribute="leading" id="TxX-Jc-k4R"/>
+                            <constraint firstItem="x20-6t-VKh" firstAttribute="leading" secondItem="aND-U0-Fs3" secondAttribute="leading" id="WbP-Xm-0qM"/>
+                            <constraint firstItem="nz2-Z7-7ht" firstAttribute="leading" secondItem="hdU-6U-GSd" secondAttribute="trailing" constant="10" id="g58-Kr-dMd"/>
+                            <constraint firstItem="x20-6t-VKh" firstAttribute="top" secondItem="aND-U0-Fs3" secondAttribute="bottom" constant="10" id="kPR-Oj-8dN"/>
+                            <constraint firstItem="aND-U0-Fs3" firstAttribute="centerX" secondItem="Ypo-iz-hlj" secondAttribute="centerX" id="unx-YB-oiU"/>
+                            <constraint firstItem="aND-U0-Fs3" firstAttribute="top" secondItem="hdU-6U-GSd" secondAttribute="bottom" constant="7.5" id="wgV-VD-scq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="jU0-eH-AIg">
+                        <rightBarButtonItems>
+                            <barButtonItem title="选择" id="ejJ-J7-H0B">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="resourceSelect:" destination="wMW-de-klH" id="Ckj-Kf-N8N"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="切换" id="NYp-xv-BV5">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="toggleClick:" destination="wMW-de-klH" id="giR-0F-khw"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="开始" id="EAB-0h-T8m">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="startPlay:" destination="wMW-de-klH" id="SOV-17-CFh"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mediaContainerView" destination="fBA-Px-ttL" id="rH7-XI-ITk"/>
+                        <outlet property="progressBar" destination="nz2-Z7-7ht" id="PWB-UH-WCp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jsh-5X-c2Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="644" y="-497"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="b5a-LP-FLo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U0p-0E-bpP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b2i-H9-Bnr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="whP-gf-Uak" kind="relationship" relationship="rootViewController" id="Te5-G5-wiH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ydb-DD-hql" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2" y="-261"/>
+        </scene>
+        <!--Audio View Controller-->
+        <scene sceneID="kv0-J0-vdp">
+            <objects>
+                <viewController id="vbx-2Y-aI1" customClass="QPAudioViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fiv-Yd-oFM"/>
+                        <viewControllerLayoutGuide type="bottom" id="hEk-b4-bC0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PBi-KY-l1o">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FH0-Px-ARX">
+                        <rightBarButtonItems>
+                            <barButtonItem title="停止" id="fgM-Ap-edt">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="stopPlay:" destination="vbx-2Y-aI1" id="uMj-RL-kch"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="暂停" id="aFk-FQ-d05">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="pausePlay:" destination="vbx-2Y-aI1" id="9nQ-Ot-YBh"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="开始" id="maX-uG-51m">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="resumePlay:" destination="vbx-2Y-aI1" id="FeL-xX-1bp"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezV-qV-ykj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="644" y="322"/>
+        </scene>
+        <!--Documetnt View Controller-->
+        <scene sceneID="JvT-Gf-ufd">
+            <objects>
+                <viewController id="dDk-j8-q6G" customClass="QPDocumetntViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bzw-LE-ANg"/>
+                        <viewControllerLayoutGuide type="bottom" id="fO9-NR-3ZC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UbN-ZM-jwq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fmK-PS-FYf">
+                        <rightBarButtonItems>
+                            <barButtonItem title="下一页" id="dRU-ua-GeV">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="nextPage:" destination="dDk-j8-q6G" id="39F-mv-btR"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="上一页" id="rEf-DU-ThB">
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="prePage:" destination="dDk-j8-q6G" id="BiV-6e-7XL"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MHk-bt-ehO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1510" y="-160"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="VideoPauseIcon" width="16" height="16"/>
+        <image name="VideoPlayIcon" width="16" height="16"/>
+        <image name="pause" width="30" height="30"/>
+        <image name="play" width="30" height="30"/>
+    </resources>
+</document>
