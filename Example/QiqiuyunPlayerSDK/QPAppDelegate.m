@@ -7,7 +7,7 @@
 //
 
 #import "QPAppDelegate.h"
-#import <QiqiuyunPlayerSDK/QiqiuyunPlayerView.h>
+#import <ESCloudPlayerSDK/ESCloudPlayerView.h>
 
 #define QIQIUYUN_CLOUD_HOST @"http://play.cloud-test.edusoho.cn/"
 
@@ -15,7 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    QiqiuyunPlayerView.debugBaseURLPath = QIQIUYUN_CLOUD_HOST;
+//    ESCloudPlayerView.debugBaseURLPath = QIQIUYUN_CLOUD_HOST;
     return YES;
 }
 

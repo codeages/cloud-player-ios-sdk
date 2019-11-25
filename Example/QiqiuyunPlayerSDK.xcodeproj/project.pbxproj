@@ -32,12 +32,12 @@
 		EA7269DC2370195000F5457B /* ESVideoPlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D52370195000F5457B /* ESVideoPlayerSlider.m */; };
 		EA7269DD2370195000F5457B /* ESDefaultVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D72370195000F5457B /* ESDefaultVideoControlView.m */; };
 		EA7269DE2370195000F5457B /* ESPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D82370195000F5457B /* ESPopoverView.m */; };
-		EA7269E423701B1300F5457B /* ESAudioPlayerCoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA7269E023701B1300F5457B /* ESAudioPlayerCoverView.xib */; };
 		EA7269E623701B1300F5457B /* ESAudioPlayerCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */; };
 		EA7269E923701B7600F5457B /* QPAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269E823701B7600F5457B /* QPAudioViewController.m */; };
 		EA7269EC23701BBD00F5457B /* QPDocumetntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269EB23701BBD00F5457B /* QPDocumetntViewController.m */; };
 		EA7269EF23701BFA00F5457B /* QPPPTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269EE23701BFA00F5457B /* QPPPTViewController.m */; };
 		EA97BF312370167B009B6CBF /* QPVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA97BF302370167B009B6CBF /* QPVideoViewController.m */; };
+		EAE9B58B2383FC58000C775B /* QPAnimationPPTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */; };
 		EAF0F7C8237D401F00D677C6 /* QPBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F7C7237D401F00D677C6 /* QPBaseViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -53,10 +53,10 @@
 
 /* Begin PBXFileReference section */
 		15079BC3F1F349480FFEB3A2 /* Pods_QiqiuyunPlayerSDK_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiqiuyunPlayerSDK_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CAFECF00A6595D45137B478 /* QiqiuyunPlayerSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = QiqiuyunPlayerSDK.podspec; path = ../QiqiuyunPlayerSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2CAFECF00A6595D45137B478 /* ESCloudPlayerSDK.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ESCloudPlayerSDK.podspec; path = ../ESCloudPlayerSDK.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2EAA8A900D325BB34EB83BB3 /* Pods-QiqiuyunPlayerSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiqiuyunPlayerSDK_Example.release.xcconfig"; path = "Target Support Files/Pods-QiqiuyunPlayerSDK_Example/Pods-QiqiuyunPlayerSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
 		3C1800CF9161926FE69D7659 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		6003F58A195388D20070C39A /* QiqiuyunPlayerSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QiqiuyunPlayerSDK_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F58A195388D20070C39A /* 气球云播放器.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "气球云播放器.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -98,7 +98,6 @@
 		EA7269D82370195000F5457B /* ESPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPopoverView.m; sourceTree = "<group>"; };
 		EA7269D92370195000F5457B /* ESVideoPlayerSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoPlayerSlider.h; sourceTree = "<group>"; };
 		EA7269DF23701B1300F5457B /* ESAudioPlayerCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAudioPlayerCoverView.h; sourceTree = "<group>"; };
-		EA7269E023701B1300F5457B /* ESAudioPlayerCoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESAudioPlayerCoverView.xib; sourceTree = "<group>"; };
 		EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAudioPlayerCoverView.m; sourceTree = "<group>"; };
 		EA7269E723701B7600F5457B /* QPAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPAudioViewController.h; sourceTree = "<group>"; };
 		EA7269E823701B7600F5457B /* QPAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPAudioViewController.m; sourceTree = "<group>"; };
@@ -108,6 +107,8 @@
 		EA7269EE23701BFA00F5457B /* QPPPTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPPPTViewController.m; sourceTree = "<group>"; };
 		EA97BF2F2370167B009B6CBF /* QPVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPVideoViewController.h; sourceTree = "<group>"; };
 		EA97BF302370167B009B6CBF /* QPVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPVideoViewController.m; sourceTree = "<group>"; };
+		EAE9B5892383FC58000C775B /* QPAnimationPPTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPAnimationPPTViewController.h; sourceTree = "<group>"; };
+		EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPAnimationPPTViewController.m; sourceTree = "<group>"; };
 		EAF0F7C6237D401F00D677C6 /* QPBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPBaseViewController.h; sourceTree = "<group>"; };
 		EAF0F7C7237D401F00D677C6 /* QPBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPBaseViewController.m; sourceTree = "<group>"; };
 		F605790FB8AE13A9B6184801 /* Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-QiqiuyunPlayerSDK_Example/Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,7 +155,7 @@
 		6003F58B195388D20070C39A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6003F58A195388D20070C39A /* QiqiuyunPlayerSDK_Example.app */,
+				6003F58A195388D20070C39A /* 气球云播放器.app */,
 				6003F5AE195388D20070C39A /* QiqiuyunPlayerSDK_Tests.xctest */,
 			);
 			name = Products;
@@ -229,7 +230,7 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				2CAFECF00A6595D45137B478 /* QiqiuyunPlayerSDK.podspec */,
+				2CAFECF00A6595D45137B478 /* ESCloudPlayerSDK.podspec */,
 				DA914BC58D11E83C6D9F786C /* README.md */,
 				3C1800CF9161926FE69D7659 /* LICENSE */,
 			);
@@ -270,6 +271,8 @@
 			children = (
 				EA7269ED23701BFA00F5457B /* QPPPTViewController.h */,
 				EA7269EE23701BFA00F5457B /* QPPPTViewController.m */,
+				EAE9B5892383FC58000C775B /* QPAnimationPPTViewController.h */,
+				EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */,
 			);
 			path = PPT;
 			sourceTree = "<group>";
@@ -277,11 +280,10 @@
 		EA97BF28237015F9009B6CBF /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269DF23701B1300F5457B /* ESAudioPlayerCoverView.h */,
-				EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */,
-				EA7269E023701B1300F5457B /* ESAudioPlayerCoverView.xib */,
 				EA7269E723701B7600F5457B /* QPAudioViewController.h */,
 				EA7269E823701B7600F5457B /* QPAudioViewController.m */,
+				EA7269DF23701B1300F5457B /* ESAudioPlayerCoverView.h */,
+				EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -344,7 +346,7 @@
 			);
 			name = QiqiuyunPlayerSDK_Example;
 			productName = QiqiuyunPlayerSDK;
-			productReference = 6003F58A195388D20070C39A /* QiqiuyunPlayerSDK_Example.app */;
+			productReference = 6003F58A195388D20070C39A /* 气球云播放器.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6003F5AD195388D20070C39A /* QiqiuyunPlayerSDK_Tests */ = {
@@ -377,7 +379,7 @@
 				ORGANIZATIONNAME = ayia;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 9T9T6HAM46;
+						DevelopmentTeam = ZKQ4HP5426;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -410,7 +412,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				EA7269E423701B1300F5457B /* ESAudioPlayerCoverView.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -459,11 +460,9 @@
 				"${PODS_ROOT}/Target Support Files/Pods-QiqiuyunPlayerSDK_Example/Pods-QiqiuyunPlayerSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
-				"${BUILT_PRODUCTS_DIR}/FBRetainCycleDetector/FBRetainCycleDetector.framework",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
-				"${BUILT_PRODUCTS_DIR}/MLeaksFinder/MLeaksFinder.framework",
 				"${BUILT_PRODUCTS_DIR}/MMLayout/MMLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/QMUIKit/QMUIKit.framework",
@@ -473,11 +472,9 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBRetainCycleDetector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MLeaksFinder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMUIKit.framework",
@@ -524,6 +521,7 @@
 				EA7269E923701B7600F5457B /* QPAudioViewController.m in Sources */,
 				EA7269C62370183700F5457B /* QPJWTTokenTool.m in Sources */,
 				6003F59E195388D20070C39A /* QPAppDelegate.m in Sources */,
+				EAE9B58B2383FC58000C775B /* QPAnimationPPTViewController.m in Sources */,
 				EA7269DB2370195000F5457B /* UIView+Fade.m in Sources */,
 				EAF0F7C8237D401F00D677C6 /* QPBaseViewController.m in Sources */,
 				EA7269DD2370195000F5457B /* ESDefaultVideoControlView.m in Sources */,
@@ -661,13 +659,13 @@
 			baseConfigurationReference = F605790FB8AE13A9B6184801 /* Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9T9T6HAM46;
+				DEVELOPMENT_TEAM = ZKQ4HP5426;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Prefix.pch";
 				INFOPLIST_FILE = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xmjuyunchuang.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.edusoho.kuozhi;
+				PRODUCT_NAME = "气球云播放器";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -678,13 +676,13 @@
 			baseConfigurationReference = 2EAA8A900D325BB34EB83BB3 /* Pods-QiqiuyunPlayerSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9T9T6HAM46;
+				DEVELOPMENT_TEAM = ZKQ4HP5426;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Prefix.pch";
 				INFOPLIST_FILE = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.xmjuyunchuang.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.edusoho.kuozhi;
+				PRODUCT_NAME = "气球云播放器";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};

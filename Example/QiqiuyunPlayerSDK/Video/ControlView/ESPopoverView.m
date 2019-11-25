@@ -42,8 +42,8 @@
             _isUpward = NO;
         }
         _imageArray = images;
-        self.backColor = [UIColor whiteColor];
-        self.titleColor = [UIColor blackColor];
+        self.backColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        self.titleColor = [UIColor whiteColor];
         _selectedIndex = -1;
         _index = -1;
         _selectedTitleColor = [UIColor colorWithRed:3/255.0 green:199/255.0 blue:119/255.0 alpha:1];

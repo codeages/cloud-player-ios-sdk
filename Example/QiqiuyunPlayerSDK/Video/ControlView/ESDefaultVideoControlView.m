@@ -260,8 +260,6 @@
         return;
     }
     ESPopoverView *popover = [[ESPopoverView alloc] initWithView:sender titles:self.rates images:nil];
-    popover.backColor = [UIColor colorWithWhite:1 alpha:0.5];
-    popover.titleColor = [UIColor whiteColor];
     popover.selectedIndex = self.currentRateIndex;
     __weak typeof(self) _self = self;
     popover.selectRowAtIndex = ^(NSInteger index) {
@@ -321,22 +319,28 @@
 
 /// 设置竖屏的约束
 - (void)setOrientationPortraitConstraint {
+    if ([self showFullScreen]) {
+        self.fullScreenBtn.hidden  = NO;
+        self.rateBtn.hidden   = YES;
+        [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self.fullScreenBtn.mas_leading);
+            make.centerY.equalTo(self.startBtn.mas_centerY);
+            make.width.mas_equalTo(60);
+        }];
+    }else{
+        self.fullScreenBtn.hidden  = YES;
+        self.rateBtn.hidden   = NO;
+        [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.trailing.equalTo(self.rateBtn.mas_leading);
+            make.centerY.equalTo(self.startBtn.mas_centerY);
+            make.width.mas_equalTo(60);
+        }];
+    }
     self.fullScreen             = NO;
-    self.fullScreenBtn.selected = NO;
-    self.fullScreenBtn.hidden   = NO;
     self.resolutionBtn.hidden   = YES;
-    self.rateBtn.hidden   = YES;;
-
-    [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(self.fullScreenBtn.mas_leading);
-        make.centerY.equalTo(self.startBtn.mas_centerY);
-        make.width.mas_equalTo(60);
-    }];
-    
     [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
     }];
-    
     self.videoSlider.hiddenPoints = YES;
 }
 
@@ -375,6 +379,9 @@
     [self.self cancelFadeOut];
 }
 
+- (BOOL)showFullScreen{
+    return YES;
+}
 
 #pragma mark - getter setter
 
@@ -481,6 +488,7 @@
         _fullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_fullScreenBtn setImage:VideoPlayerImage(@"fullscreen") forState:UIControlStateNormal];
         [_fullScreenBtn addTarget:self action:@selector(fullScreenBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _fullScreenBtn.hidden = ![self showFullScreen];
     }
     return _fullScreenBtn;
 }
@@ -544,7 +552,6 @@
     self.backgroundColor             = [UIColor clearColor];
     
 }
-
 
 - (void)play{
     [self setPlayState:YES];

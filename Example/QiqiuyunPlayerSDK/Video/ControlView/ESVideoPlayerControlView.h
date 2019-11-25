@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)needAppear;
 - (void)needDisappear;
 
+- (void)setOrientationLandscapeConstraint;
+- (void)setOrientationPortraitConstraint;
+
 @end
 
 @protocol ESVideoPlayerControlViewDelegate <NSObject>

@@ -1,13 +1,13 @@
 //
 //  QPVideoViewController.m
-//  QiqiuyunPlayerSDK_Example
+//  ESCloudPlayerSDK_Example
 //
 //  Created by aaayi on 2019/11/4.
 //  Copyright © 2019 ayia. All rights reserved.
 //
 
 #import "QPVideoViewController.h"
-#import <QiqiuyunPlayerSDK/QiqiuyunPlayerView.h>
+#import <ESCloudPlayerSDK/ESCloudPlayerView.h>
 #import <Masonry.h>
 #import "QPJWTTokenTool.h"
 #import "QPRotationManager.h"
@@ -19,7 +19,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define VIDEO_RES_NO @"f54d3a9a2c4c4a279b15753792e6b897"
-#define VIDEO_TOKEN  @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImY1NGQzYTlhMmM0YzRhMjc5YjE1NzUzNzkyZTZiODk3IiwianRpIjoiYzg0MWVkNzctYTcwMy00ZiIsImV4cCI6MTYwNTA1OTMzMSwidGltZXMiOjEwMDAwMDAsInByZXZpZXciOm51bGwsIm5hdGl2ZSI6bnVsbCwicGxheUF1ZGlvIjoiMSIsImhlYWQiOm51bGwsInNraXAiOm51bGwsImVuY3J5cHQiOm51bGx9.jUrJFg4QqZ3gvfZ8OZsNASB4t0cQO8Lfg5JOCDmAEdY"
 
 static inline __kindof UIResponder *_Nullable
 _lookupResponder(UIView *view, Class cls) {
@@ -30,8 +29,7 @@ _lookupResponder(UIView *view, Class cls) {
     return next;
 }
 
-@interface QPVideoViewController ()<QiqiuyunPlayerProtocol,ESVideoPlayerControlViewDelegate>
-@property (strong, nonatomic) QiqiuyunPlayerView *mediaPlayerView;
+@interface QPVideoViewController ()<ESCloudPlayerProtocol,ESVideoPlayerControlViewDelegate>
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) ESDefaultVideoControlView *controlView;
 @property (strong, nonatomic) ESAudioPlayerCoverView *audioCoverView;
@@ -41,8 +39,13 @@ _lookupResponder(UIView *view, Class cls) {
 @property (strong, nonatomic) NSArray *definitions;
 @property (copy, nonatomic) NSString *token;
 @property (copy, nonatomic) NSString *resNo;
+@property (copy, nonatomic) NSString *previewTime;
+@property (copy, nonatomic) NSString *headResNo;
+
 @property (strong, nonatomic)  UITextField *resNOTextField;
 @property (strong, nonatomic)  UITextField *tokenTextField;
+@property (strong, nonatomic)  UITextField *previewTimeTextField;
+@property (strong, nonatomic)  UITextField *headResNoTextField;
 
 @property (assign, nonatomic) BOOL isAudio;  /// 是否是音频
 
@@ -53,7 +56,7 @@ _lookupResponder(UIView *view, Class cls) {
 
 - (ESDefaultVideoControlView *)controlView{
     if (!_controlView) {
-        _controlView = [[ESDefaultVideoControlView alloc]initWithFrame:self.mediaContainerView.bounds];
+        _controlView = [[ESDefaultVideoControlView alloc]initWithFrame:CGRectZero];
         _controlView.rates = @[@"0.5",@"1.0",@"1.5",@"2.0"];
         _controlView.delegate = self;
         _controlView.title = @"视频";
@@ -66,13 +69,21 @@ _lookupResponder(UIView *view, Class cls) {
     return _controlView;
 }
 
-- (QiqiuyunPlayerView *)mediaPlayerView {
-    if (!_mediaPlayerView) {
-        _mediaPlayerView = [[QiqiuyunPlayerView alloc]initWithFrame:self.mediaContainerView.bounds];
-        _mediaPlayerView.backgroundColor = [UIColor blackColor];
-        _mediaPlayerView.delegate = self;
+- (ESAudioPlayerCoverView *)audioCoverView {
+    if (!_audioCoverView) {
+        _audioCoverView = [[ESAudioPlayerCoverView alloc]initWithFrame:CGRectZero];
+        _audioCoverView.coverImage = [UIImage imageNamed:@"music-record"];
+        _audioCoverView.delegate = self;
+        _audioCoverView.hidden = !self.isAudio;
+        _audioCoverView.rates = @[@"0.5", @"1.0", @"1.5"];
+        _audioCoverView.title = @"音频";
+        __weak typeof(self) _self = self;
+        _audioCoverView.shouldTriggerPlay = ^BOOL (ESVideoPlayerControlView *_Nonnull controlView) {
+            __strong typeof(_self) self = _self;
+            return self.mediaPlayerView.videoPlayerContoller.canPlay;
+        };
     }
-    return _mediaPlayerView;
+    return _audioCoverView;
 }
 
 - (nullable __kindof UIViewController *)atViewController {
@@ -83,10 +94,8 @@ _lookupResponder(UIView *view, Class cls) {
 {
     [super viewDidLoad];
     
-    self.token = [QPJWTTokenTool JWTTokenWithResNo:VIDEO_RES_NO playAudio:@"2"];
-    self.resNo = VIDEO_RES_NO;
     self.isAudio = NO;
-
+    self.mediaPlayerView.frame = self.mediaContainerView.bounds;
     [self.mediaContainerView addSubview:self.mediaPlayerView];
 
     QPRotationManager *rotationManager = [[QPRotationManager alloc] init];
@@ -95,50 +104,36 @@ _lookupResponder(UIView *view, Class cls) {
     [self _setupRotationManager:_rotationManager];
 
     [self.mediaPlayerView addSubview:self.controlView];
-    [_controlView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.controlView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
 
-    _audioCoverView = [ESAudioPlayerCoverView createdAudioPlayerCoverView];
-    _audioCoverView.coverImageUrl = @"https://pics2.baidu.com/feed/730e0cf3d7ca7bcbe4d2f6d31d0bc666f724a8ad.jpeg?token=f15c9288e3a5dc6f9e8209cb7fa83b75&s=8909B3551720C945060D6DEA0300A022";
-    _audioCoverView.frame = _mediaPlayerView.bounds;
-    _audioCoverView.hidden =  !self.isAudio;
-    [self.mediaPlayerView addSubview:_audioCoverView];
+    [self.mediaPlayerView addSubview:self.audioCoverView];
+    [self.audioCoverView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
+    }];
 
     [self resetCoverView];
 
     self.resources = @[
         @{
-            @"message": @"默认播放视频，可以音视频切换",
-            @"resNo": @"f54d3a9a2c4c4a279b15753792e6b897",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImY1NGQzYTlhMmM0YzRhMjc5YjE1NzUzNzkyZTZiODk3IiwianRpIjoiYzg0MWVkNzctYTcwMy00ZiIsImV4cCI6MTYwNTA1OTMzMSwidGltZXMiOjEwMDAwMDAsInByZXZpZXciOm51bGwsIm5hdGl2ZSI6bnVsbCwicGxheUF1ZGlvIjoiMSIsImhlYWQiOm51bGwsInNraXAiOm51bGwsImVuY3J5cHQiOm51bGx9.jUrJFg4QqZ3gvfZ8OZsNASB4t0cQO8Lfg5JOCDmAEdY",
+            @"message": @"视频资源1",
+            @"resNo": @"05f228b0430f41bdaed9a7c744422d7a",
         },
         @{
-            @"message": @"默认播放音频，可以音视频切换",
-            @"resNo": @"f54d3a9a2c4c4a279b15753792e6b897",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImY1NGQzYTlhMmM0YzRhMjc5YjE1NzUzNzkyZTZiODk3IiwianRpIjoiMWI0Zjc2YTctNzdlYi00NCIsImV4cCI6MTYwNTA1OTMzMywidGltZXMiOjEwMDAwMDAsInByZXZpZXciOm51bGwsIm5hdGl2ZSI6bnVsbCwicGxheUF1ZGlvIjoiMiIsImhlYWQiOm51bGwsInNraXAiOm51bGwsImVuY3J5cHQiOm51bGx9.AyPN8BkTAbPZ0qVgYmu5FZtwzKD86ejNmfKxuu18MwA",
+            @"message": @"视频资源2",
+            @"resNo": @"01ab351ab7cb42c783b22606543fc5e9",
         },
         @{
-            @"message": @"带水印的视频资源",
-            @"resNo": @"b68c5f87101b45c898c2aef698c1b0b7",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImI2OGM1Zjg3MTAxYjQ1Yzg5OGMyYWVmNjk4YzFiMGI3IiwianRpIjoiYzc4ZmEwZmMtMjE0OS00ZCIsImV4cCI6MTYwNTA2NDU1MywidGltZXMiOjEwMDAwMDAsInByZXZpZXciOm51bGwsIm5hdGl2ZSI6bnVsbCwicGxheUF1ZGlvIjpudWxsLCJoZWFkIjpudWxsLCJza2lwIjpudWxsLCJlbmNyeXB0IjpudWxsfQ.2HwhXgxBF7a876c8GyFNCCoHE39bolyBRBZJaDRHRr0",
+            @"message":@"视频资源3",
+            @"resNo":@"b777b2a8727f4bbdb353736aa73b16db"
         },
         @{
-            @"message": @"原视频26分钟，试看5分钟",
-            @"resNo": @"f54d3a9a2c4c4a279b15753792e6b897",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImY1NGQzYTlhMmM0YzRhMjc5YjE1NzUzNzkyZTZiODk3IiwianRpIjoiMmEyNTlhNTUtMzg5Yy00MSIsImV4cCI6MTYwNDc0MDQyNSwidGltZXMiOjEwMDAwMDAsInByZXZpZXciOiIzMDAiLCJuYXRpdmUiOm51bGwsInBsYXlBdWRpbyI6bnVsbCwiaGVhZCI6bnVsbCwic2tpcCI6bnVsbCwiZW5jcnlwdCI6bnVsbH0.VYpJ-p6d0MSrk_Y38X4b37m1E3U6dBvZgiWdy8Z2N0I",
-        },
-        @{
-            @"message": @"普通视频",
-            @"resNo": @"06acd238f7344b7da68f63f04e3f068d",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6IjA2YWNkMjM4ZjczNDRiN2RhNjhmNjNmMDRlM2YwNjhkIiwianRpIjoiODY4MmQ1NjYtYTQxYi00OCIsImV4cCI6MTYwNDYzNDQ1MSwidGltZXMiOjEwMDAwMDB9.YFZr95kwK1GGAlSSgIdB_kZWqGNUWld3MOHByuUaqhA",
-        },
-        @{
-            @"message": @"严格模式",
-            @"resNo": @"06acd238f7344b7da68f63f04e3f068d",
-            @"token": @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6IjA2YWNkMjM4ZjczNDRiN2RhNjhmNjNmMDRlM2YwNjhkIiwianRpIjoiZTk3MzYwZWMtZDhmZC00MCIsImV4cCI6MTYwNTIzMjc0NiwidGltZXMiOjEwMDAwMDAsInByZXZpZXciOm51bGwsIm5hdGl2ZSI6bnVsbCwicGxheUF1ZGlvIjpudWxsLCJoZWFkIjpudWxsLCJza2lwIjpudWxsLCJlbmNyeXB0IjoiMyJ9.ONhOdVIjS5HxZ44--aK2F-whk7S_ZYwST1QbXo741vk",
+            @"message":@"视频资源4",
+            @"resNo":@"75466f949aa34951b759e0491c78a4f5"
         }
     ];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -263,6 +258,8 @@ _lookupResponder(UIView *view, Class cls) {
 - (void)controlViewBack:(UIView *)controlView {
     if (self.rotationManager.isFullscreen) {
         [self.rotationManager rotate];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
@@ -282,7 +279,7 @@ _lookupResponder(UIView *view, Class cls) {
 }
 
 - (void)controlView:(ESVideoPlayerControlView *)controlView switchDefinitionWithIndex:(NSUInteger)index {
-    NSString *level = [self.definitions objectAtIndex:index][@"level"];
+    ESCloudPlayerVideoDefinition level = [[self.definitions objectAtIndex:index][@"definition"] integerValue];
     [self.mediaPlayerView.videoPlayerContoller switchDefinition:level];
 }
 
@@ -302,11 +299,11 @@ _lookupResponder(UIView *view, Class cls) {
 
 #pragma mark -
 
-- (void)mediaPlayerStartBuffer:(QiqiuyunPlayerView *)playerView {
+- (void)mediaPlayerStartBuffer:(ESCloudPlayerView *)playerView {
     [self showProgressInView:self.view];
 }
 
-- (void)mediaPlayerStopBuffer:(QiqiuyunPlayerView *)playerView error:(NSError *_Nullable)error {
+- (void)mediaPlayerStopBuffer:(ESCloudPlayerView *)playerView error:(NSError *_Nullable)error {
     if (error) {
         [self showMessage:error.userInfo[@"message"]];
     }
@@ -322,30 +319,33 @@ _lookupResponder(UIView *view, Class cls) {
     self.controlView.definitions = titles;
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView onFail:(nonnull NSError *)error {
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView onFail:(nonnull NSError *)error {
     [self.controlView pause];
+    [self.audioCoverView pause];
+    [self showMessage:@"播放错误"];
     NSLog(@"\n\n播放错误: %@\n\n", error);
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView durationDidChange:(NSTimeInterval)duration {
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView durationDidChange:(NSTimeInterval)duration {
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView playableDurationDidChange:(NSTimeInterval)duration {
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView playableDurationDidChange:(NSTimeInterval)duration {
     [self.controlView setProgressTime:playerView.videoPlayerContoller.currentDuration totalTime:playerView.videoPlayerContoller.duration playableTime:duration];
+    [self.audioCoverView setProgressTime:playerView.videoPlayerContoller.currentDuration totalTime:playerView.videoPlayerContoller.duration playableTime:duration];
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView switchDefinitionStatusDidChange:(QiqiuyunSwitchDefinitionStatus)status {
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView switchDefinitionStatusDidChange:(ESCloudSwitchDefinitionStatus)status {
     switch (status) {
-        case QiqiuyunSwitchDefinitionStatusSwitching: {
+        case ESCloudSwitchDefinitionStatusSwitching: {
             [self.controlView appearTips:@"正在切换清晰度"];
         }
         break;
-        case QiqiuyunSwitchDefinitionStatusFinished: {
+        case ESCloudSwitchDefinitionStatusFinished: {
             [self.controlView disappearTips];
             [self showMessage:@"切换成功" view:nil];
         }
         break;
-        case QiqiuyunSwitchDefinitionStatusFailed: {
+        case ESCloudSwitchDefinitionStatusFailed: {
             [self.controlView disappearTips];
             [self showMessage:@"切换失败" view:nil];
         }
@@ -355,7 +355,7 @@ _lookupResponder(UIView *view, Class cls) {
     }
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView currentTimeDidChange:(NSTimeInterval)duration {
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView currentTimeDidChange:(NSTimeInterval)duration {
     float progress = duration / self.mediaPlayerView.videoPlayerContoller.duration;
     if (progress <= 0) {
         progress = 0.0;
@@ -367,22 +367,26 @@ _lookupResponder(UIView *view, Class cls) {
 
     [self.progressBar setProgress:progress animated:YES];
     [self.controlView setProgressTime:duration totalTime:playerView.videoPlayerContoller.duration playableTime:playerView.videoPlayerContoller.playableDuration];
+    [self.audioCoverView setProgressTime:duration totalTime:playerView.videoPlayerContoller.duration playableTime:playerView.videoPlayerContoller.playableDuration];
 }
 
-- (void)mediaPlayerOnPause:(QiqiuyunPlayerView *)playerView {
+- (void)mediaPlayerOnPause:(ESCloudPlayerView *)playerView {
     [self.controlView pause];
+    [self.audioCoverView pause];
     [self.audioCoverView stopRotating];
 }
 
-- (void)mediaPlayerOnResume:(QiqiuyunPlayerView *)playerView {
+- (void)mediaPlayerOnResume:(ESCloudPlayerView *)playerView {
     [self.controlView play];
+    [self.audioCoverView play];
     [self.audioCoverView startRotating];
 }
 
-- (void)mediaPlayerOnStop:(QiqiuyunPlayerView *)playerView reason:(QiqiuyunPlayerStopReason)reason{
-    [self.controlView stop];
+- (void)mediaPlayerOnStop:(ESCloudPlayerView *)playerView reason:(ESCloudPlayerStopReason)reason{
+    [self.controlView pause];
+    [self.audioCoverView pause];
     [self.audioCoverView stopRotating];
-    if (self.mediaPlayerView.videoPlayerContoller.isPreview && reason == QiqiuyunPlayerStopReasonEndTime) {
+    if (self.mediaPlayerView.videoPlayerContoller.isPreview) {
         [self showMessage:@"试看结束" view:nil];
     }
 }
@@ -411,43 +415,55 @@ _lookupResponder(UIView *view, Class cls) {
 - (IBAction)startPlay:(id)sender {
     QMUIAlertController *aVC = [[QMUIAlertController alloc]initWithTitle:@"请输入" message:nil preferredStyle:QMUIAlertControllerStyleAlert];
     [aVC addTextFieldWithConfigurationHandler:^(QMUITextField *_Nonnull textField) {
-        textField.placeholder = @"请输入respNo";
+        textField.placeholder = @"请输入资源No";
         self.resNOTextField = textField;
     }];
 
     [aVC addTextFieldWithConfigurationHandler:^(QMUITextField *_Nonnull textField) {
-        textField.placeholder = @"请输入token";
+        textField.placeholder = @"请输入片头资源No";
+        self.headResNoTextField = textField;
+    }];
+    
+    [aVC addTextFieldWithConfigurationHandler:^(QMUITextField *_Nonnull textField) {
+        textField.placeholder = @"请输入试看时间(秒)";
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        self.previewTimeTextField = textField;
+    }];
+
+    [aVC addTextFieldWithConfigurationHandler:^(QMUITextField *_Nonnull textField) {
+        textField.placeholder = @"请输入token(可选)";
         self.tokenTextField = textField;
     }];
+    
 
     QMUIAlertAction *action = [QMUIAlertAction actionWithTitle:@"确认" style:QMUIAlertActionStyleDefault handler:^(__kindof QMUIAlertController *_Nonnull aAlertController, QMUIAlertAction *_Nonnull action) {
-        if (_tokenTextField.text.length > 0 && _resNOTextField.text.length > 0) {
-            self.token = _tokenTextField.text;
+        if (_resNOTextField.text.length > 0) {
+            if (_tokenTextField.text.length > 0) {
+               self.token = _tokenTextField.text;
+            }
             self.resNo = _resNOTextField.text;
+            self.previewTime = self.previewTimeTextField.text;
+            self.headResNo = self.headResNoTextField.text;
             [self startPlay];
         }
-    }];
-
-    QMUIAlertAction *defAction = [QMUIAlertAction actionWithTitle:@"默认播放" style:QMUIAlertActionStyleDefault handler:^(__kindof QMUIAlertController *_Nonnull aAlertController, QMUIAlertAction *_Nonnull action) {
-        self.token = VIDEO_TOKEN;
-        self.resNo = VIDEO_RES_NO;
-        [self startPlay];
     }];
 
     QMUIAlertAction *cAction = [QMUIAlertAction actionWithTitle:@"取消" style:QMUIAlertActionStyleCancel handler:^(__kindof QMUIAlertController *_Nonnull aAlertController, QMUIAlertAction *_Nonnull action) {
     }];
 
     [aVC addAction:action];
-    [aVC addAction:defAction];
+//    [aVC addAction:defAction];
     [aVC addAction:cAction];
     [aVC showWithAnimated:YES];
 }
 
 - (void)startPlay {
-//    token = [ESJWTTokenTool JWTTokenWithResNo:respNO playAudio:@"1"];
+    if (self.token.length <= 0) {
+        self.token = [QPJWTTokenTool JWTTokenWithPlayload:self.resNo previewTime:[self.previewTime integerValue] headResNo:self.headResNo isPlayAudio:YES];
+    }
     [self showProgressInView:self.view];
     __weak typeof(self) _self = self;
-    [self.mediaPlayerView loadResourceWithToken:self.token resNo:self.resNo completionHandler:^(NSDictionary *_Nullable resource, NSError *_Nullable error) {
+    [self.mediaPlayerView loadResourceWithToken:self.token resNo:self.resNo specifyStartPos:30 completionHandler:^(NSDictionary *_Nullable resource, NSError *_Nullable error) {
         __strong typeof(_self) self = _self;
         [self dissMissProgressInView:self.view];
         if (error) {
@@ -467,7 +483,7 @@ _lookupResponder(UIView *view, Class cls) {
     }
     [self showProgressInView:self.view];
     __weak typeof(self) _self = self;
-    [self.mediaPlayerView.videoPlayerContoller toggleWithCompletionHandler:^(NSDictionary *_Nullable resource, NSError *_Nullable error) {
+    [self.mediaPlayerView.videoPlayerContoller toggleWithSpecifyStartPos:20 completionHandler:^(NSDictionary *_Nullable resource, NSError *_Nullable error) {
         __strong typeof(_self) self = _self;
         [self dissMissProgressInView:self.view];
         if (error) {
@@ -482,11 +498,14 @@ _lookupResponder(UIView *view, Class cls) {
 
 - (IBAction)resourceSelect:(id)sender {
     [self showResourceList:^(NSDictionary *_Nonnull resource) {
-        self.token = resource[@"token"];
         self.resNo = resource[@"resNo"];
+        self.headResNo = resource[@"headResNo"]?:@"";
+        self.previewTime = resource[@"previewTime"]?:@"";
+        self.token = resource[@"token"]?:@"";
         [self startPlay];
     }];
 }
+
 
 - (IBAction)sub:(id)sender {
     NSTimeInterval toTime = self.mediaPlayerView.videoPlayerContoller.currentDuration - 5;
@@ -519,11 +538,11 @@ _lookupResponder(UIView *view, Class cls) {
 }
 
 - (IBAction)showFingerprint {
-    [self.mediaPlayerView.videoPlayerContoller showFingerprint:@"edusoho.com" fadeTime:5.0];
+    [self.mediaPlayerView.videoPlayerContoller showFingerprint:@"ESCloud.com" fadeTime:5.0];
 }
 
 - (IBAction)showWatermark {
-    [self.mediaPlayerView.videoPlayerContoller showWatermarkWithImageURL:[NSURL URLWithString:@"https://edusoho.cn/bundles/topxiaweb/v2/img/logo.png?v3.20.4"]];
+    [self.mediaPlayerView.videoPlayerContoller showWatermarkWithImageURL:[NSURL URLWithString:@"https://edusoho.cn/bundles/topxiaweb/v2/img/logo.png?v3.20.4"] position:ESCloudPlayerWatermarkPositionCenterLeft];
 }
 
 NS_ASSUME_NONNULL_END

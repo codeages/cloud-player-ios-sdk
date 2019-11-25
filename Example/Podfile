@@ -3,12 +3,12 @@ use_frameworks!
 platform :ios, '9.0'
 
 target 'QiqiuyunPlayerSDK_Example' do
-  pod 'QiqiuyunPlayerSDK', :path => '../'
+  pod 'ESCloudPlayerSDK', :path => '../'
   pod 'QMUIKit/QMUIComponents', '=4.0.0'
   pod 'JGProgressHUD'
   pod "JWT"
   pod 'MMLayout'
-  pod 'MLeaksFinder', :configurations => ['Debug']
+#  pod 'MLeaksFinder', :configurations => ['Debug']
 
   target 'QiqiuyunPlayerSDK_Tests' do
     inherit! :search_paths

@@ -15,7 +15,11 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Base64 (1.1.2)
-  - FBRetainCycleDetector (0.1.4)
+  - ESCloudPlayerSDK (0.1.0):
+    - AFNetworking
+    - GCDWebServer
+    - Masonry
+    - YYKit
   - GCDWebServer (3.5.3):
     - GCDWebServer/Core (= 3.5.3)
   - GCDWebServer/Core (3.5.3)
@@ -23,14 +27,7 @@ PODS:
   - JWT (2.2.0):
     - Base64 (~> 1.1.2)
   - Masonry (1.1.0)
-  - MLeaksFinder (1.0.0):
-    - FBRetainCycleDetector
   - MMLayout (0.2.0)
-  - QiqiuyunPlayerSDK (0.1.0):
-    - AFNetworking
-    - GCDWebServer
-    - Masonry
-    - YYKit
   - QMUIKit/QMUIComponents (4.0.0):
     - QMUIKit/QMUIComponents/NavigationBarTransition (= 4.0.0)
     - QMUIKit/QMUIComponents/QMUIAlertController (= 4.0.0)
@@ -323,45 +320,40 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - ESCloudPlayerSDK (from `../`)
   - JGProgressHUD
   - JWT
-  - MLeaksFinder
   - MMLayout
-  - QiqiuyunPlayerSDK (from `../`)
   - QMUIKit/QMUIComponents (= 4.0.0)
 
 SPEC REPOS:
   trunk:
     - AFNetworking
     - Base64
-    - FBRetainCycleDetector
     - GCDWebServer
     - JGProgressHUD
     - JWT
     - Masonry
-    - MLeaksFinder
     - MMLayout
     - QMUIKit
     - YYKit
 
 EXTERNAL SOURCES:
-  QiqiuyunPlayerSDK:
+  ESCloudPlayerSDK:
     :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
+  ESCloudPlayerSDK: 6fba050fec5840d4ead8a6636931d27843e6bd2e
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   MMLayout: 3fb59d58eeb8656c64e61d550fb0088e10666c11
-  QiqiuyunPlayerSDK: d5adb89b909d8859204478195c8ca17997504b88
   QMUIKit: b14f5d06b81d01b908e4fa2e6d0177804c6ae0f6
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 752b8833583fd3488e54ec590c43543c4a0f06b6
+PODFILE CHECKSUM: 0eff29d84a0cee9ef059f05cbdf667c3e2eebc05
 
 COCOAPODS: 1.8.4

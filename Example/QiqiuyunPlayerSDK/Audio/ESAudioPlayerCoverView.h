@@ -7,14 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ESDefaultVideoControlView.h"
 
-@interface ESAudioPlayerCoverView : UIView
-
-@property (assign, nonatomic) BOOL isFullScreen;
+@interface ESAudioPlayerCoverView : ESDefaultVideoControlView
 @property (copy, nonatomic) NSString *coverImageUrl;
-
-+ (ESAudioPlayerCoverView *)createdAudioPlayerCoverView;
+@property (strong, nonatomic) UIImage *coverImage;
 - (void)startRotating;
 - (void)stopRotating;
-
 @end

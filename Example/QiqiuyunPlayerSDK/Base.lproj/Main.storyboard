@@ -23,7 +23,7 @@
                                 <rect key="frame" x="87.5" y="183.5" width="200" height="300"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNu-ic-Jab">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="44"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="视频">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -33,7 +33,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0fT-Hn-8B2">
-                                        <rect key="frame" x="0.0" y="80" width="200" height="60"/>
+                                        <rect key="frame" x="0.0" y="64" width="200" height="44"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="音频">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -43,7 +43,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oH5-fX-A5r">
-                                        <rect key="frame" x="0.0" y="160" width="200" height="60"/>
+                                        <rect key="frame" x="0.0" y="128" width="200" height="44"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="ppt">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -53,13 +53,23 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVq-M1-9p9">
-                                        <rect key="frame" x="0.0" y="240" width="200" height="60"/>
+                                        <rect key="frame" x="0.0" y="192" width="200" height="44"/>
                                         <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="文档">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
                                             <segue destination="dDk-j8-q6G" kind="show" id="B5p-zZ-lPm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wx6-I5-TaE">
+                                        <rect key="frame" x="0.0" y="256" width="200" height="44"/>
+                                        <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="ppt动画">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="i4a-Xb-6VR" kind="show" id="weT-a1-qHJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -109,21 +119,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SoU-cF-7Az">
-                        <rightBarButtonItems>
-                            <barButtonItem id="tJO-qY-h9Q"/>
-                            <barButtonItem title="下一页" id="nYg-dw-DhY">
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <action selector="nextPage:" destination="DbO-iS-BG2" id="wJd-lv-agw"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="上一页" id="WfX-vz-r9N">
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <action selector="prePage:" destination="DbO-iS-BG2" id="R5L-gz-hbV"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" id="tJO-qY-h9Q"/>
                     </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="6nJ-5h-DZK" id="l4j-oR-tGT"/>
@@ -298,6 +294,42 @@
             </objects>
             <point key="canvasLocation" x="644" y="-497"/>
         </scene>
+        <!--AnimationPPT View Controller-->
+        <scene sceneID="4pL-je-wbP">
+            <objects>
+                <viewController id="i4a-Xb-6VR" customClass="QPAnimationPPTViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="osU-Pt-EkQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="0fD-Hz-I7q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="l85-8T-ef1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmb-4E-4XB">
+                                <rect key="frame" x="0.0" y="44" width="375" height="211"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jmb-4E-4XB" secondAttribute="height" multiplier="16:9" id="0Hx-fX-xrc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="jmb-4E-4XB" firstAttribute="top" secondItem="osU-Pt-EkQ" secondAttribute="bottom" id="LXt-dx-JFg"/>
+                            <constraint firstItem="jmb-4E-4XB" firstAttribute="leading" secondItem="l85-8T-ef1" secondAttribute="leading" id="OG0-Xh-Ee5"/>
+                            <constraint firstAttribute="trailing" secondItem="jmb-4E-4XB" secondAttribute="trailing" id="gWA-eh-hrh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="1fB-L7-jME"/>
+                    <connections>
+                        <outlet property="containerView" destination="jmb-4E-4XB" id="B5R-MY-1rL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FA4-do-ny2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1495" y="-600"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="b5a-LP-FLo">
             <objects>
@@ -368,24 +400,33 @@
                     <view key="view" contentMode="scaleToFill" id="UbN-ZM-jwq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSn-dd-fHH">
+                                <rect key="frame" x="0.0" y="44" width="375" height="211"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sSn-dd-fHH" secondAttribute="height" multiplier="16:9" id="9dz-i1-9Aa"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="sSn-dd-fHH" firstAttribute="leading" secondItem="UbN-ZM-jwq" secondAttribute="leading" id="J9p-LO-kvt"/>
+                            <constraint firstAttribute="trailing" secondItem="sSn-dd-fHH" secondAttribute="trailing" id="Mfc-gg-TVn"/>
+                            <constraint firstItem="sSn-dd-fHH" firstAttribute="top" secondItem="bzw-LE-ANg" secondAttribute="bottom" id="RVO-Ki-e0p"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fmK-PS-FYf">
-                        <rightBarButtonItems>
-                            <barButtonItem title="下一页" id="dRU-ua-GeV">
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <action selector="nextPage:" destination="dDk-j8-q6G" id="39F-mv-btR"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="上一页" id="rEf-DU-ThB">
-                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <connections>
-                                    <action selector="prePage:" destination="dDk-j8-q6G" id="BiV-6e-7XL"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="回到首页" id="dRU-ua-GeV">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="goToOne:" destination="dDk-j8-q6G" id="1Ku-WN-gEf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="sSn-dd-fHH" id="3bD-xI-5Wl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHk-bt-ehO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

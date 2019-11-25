@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8F094023-CE78-4A8C-8BAD-22EA668C9B28"
+            uuid = "C58337F6-66BA-4F66-8AB7-7EFF5C120F41"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "QiqiuyunPlayerSDK/QPViewController.m"
+            filePath = "QiqiuyunPlayerSDK/Video/QPVideoViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "-startPlay"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

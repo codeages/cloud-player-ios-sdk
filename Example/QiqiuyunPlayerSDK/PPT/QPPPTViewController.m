@@ -8,7 +8,7 @@
 
 #import "QPPPTViewController.h"
 
-#import <QiqiuyunPlayerSDK/QiqiuyunPlayerView.h>
+#import <ESCloudPlayerSDK/ESCloudPlayerView.h>
 #import "QPJWTTokenTool.h"
 #import "QPRotationManager.h"
 #import <Masonry.h>
@@ -21,12 +21,9 @@
    (isPhoneX); })
 
 
-#define PPT_RES_NO @"15b5916276844a918cf272c338654b28"
-#define PPT_TOKEN_NO @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6IjE1YjU5MTYyNzY4NDRhOTE4Y2YyNzJjMzM4NjU0YjI4IiwianRpIjoiMDM2YzNkZGUtODRkZi00YyIsImV4cCI6MTYwNDYzNDQ1MSwidGltZXMiOjEwMDAwMDB9.BJVo8OCRflsNdPFdldrFstEsNau3FsihOWQagfpWN3o"
+#define PPT_RES_NO @"347ceb8430244f4d89a32fec917fdb4c"
 
-@interface QPPPTViewController ()<QiqiuyunPlayerProtocol>
-@property (strong, nonatomic) QiqiuyunPlayerView *mediaPlayerView;
-@property (strong, nonatomic) UIButton *fullscreenButton;
+@interface QPPPTViewController ()<ESCloudPlayerProtocol>
 @property (strong, nonatomic) QPRotationManager *rotationManager;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 
@@ -36,55 +33,30 @@
 @end
 
 @implementation QPPPTViewController
-- (QiqiuyunPlayerView *)mediaPlayerView {
-    if (!_mediaPlayerView) {
-        _mediaPlayerView = [[QiqiuyunPlayerView alloc]initWithFrame:self.view.bounds];
-        _mediaPlayerView.backgroundColor = [UIColor blackColor];
-        _mediaPlayerView.delegate = self;
-    }
-    return _mediaPlayerView;
-}
-
-
-- (UIButton *)fullscreenButton {
-    if (!_fullscreenButton) {
-        _fullscreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _fullscreenButton.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
-        _fullscreenButton.layer.cornerRadius = 20;
-        _fullscreenButton.clipsToBounds = YES;
-        _fullscreenButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
-        [_fullscreenButton setImage:[UIImage imageNamed:@"VideoFullscreenIcon"] forState:UIControlStateNormal];
-        [_fullscreenButton setImage:[UIImage imageNamed:@"ShrinkScreenIcon"] forState:UIControlStateSelected];
-        [_fullscreenButton addTarget:self action:@selector(fullscreenButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _fullscreenButton;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.containerView addSubview:self.mediaPlayerView];
-    
-    [self.mediaPlayerView addSubview:self.fullscreenButton];
-    [self.mediaPlayerView bringSubviewToFront:self.fullscreenButton];
-    [self.fullscreenButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(40);
-        make.height.mas_equalTo(40);
-        make.bottom.mas_equalTo(-15);
-        make.right.mas_equalTo(-10);
-    }];
-    
+        
+    NSString *token = [QPJWTTokenTool JWTTokenWithPlayload:PPT_RES_NO previewTime:0 headResNo:@"" isPlayAudio:YES];
     [self showProgressInView:self.view];
     __weak typeof(self) _self = self;
-    [self.mediaPlayerView loadResourceWithToken:PPT_TOKEN_NO resNo:PPT_RES_NO completionHandler:^(NSDictionary * _Nullable resource, NSError * _Nullable error) {
+    [self.mediaPlayerView loadResourceWithToken:token resNo:PPT_RES_NO specifyStartPos:3 completionHandler:^(NSDictionary * _Nullable resource, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         [self dissMissProgressInView:self.view];
-
+        if (error) {
+            [self showMessage:error.userInfo[@"message"] view:nil];
+        } else {
+            NSLog(@"%@", resource);
+        }
     }];
     
     QPRotationManager *rotationManager = [[QPRotationManager alloc] init];
     rotationManager.delegate = (id)self;
     _rotationManager = rotationManager;
     [self _setupRotationManager:_rotationManager];
+    
+    [self addConrollItem];
 
 }
 
@@ -155,10 +127,10 @@
     [self.rotationManager rotate];
 }
 
-- (IBAction)prePage:(id)sender {
+- (void)prePage {
     [self.mediaPlayerView.pptPlayerContoller  previousPage];
 }
-- (IBAction)nextPage:(id)sender {
+- (void)nextPage {
     [self.mediaPlayerView.pptPlayerContoller  nextPage];
 }
 
@@ -213,11 +185,11 @@
     }
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView pptScrollPageAtIndex:(NSInteger)index{
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView pptScrollPageAtIndex:(NSInteger)index{
     
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView pptTapPageAtIndex:(NSInteger)index{
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView pptTapPageAtIndex:(NSInteger)index{
     
 }
 

@@ -10,11 +10,69 @@
 
 #import <JGProgressHUD/JGProgressHUD.h>
 #import <QMUIKit/QMUIAlertController.h>
-@interface QPBaseViewController ()
+#import <Masonry.h>
+
+#define IPHONE_X \
+({ BOOL isPhoneX = NO; \
+   if (@available(iOS 11.0, *)) { \
+       isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0; \
+   } \
+   (isPhoneX); })
+
+@interface QPBaseViewController ()<ESCloudPlayerProtocol>
 
 @end
 
 @implementation QPBaseViewController
+- (UIButton *)fullscreenButton {
+    if (!_fullscreenButton) {
+        _fullscreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _fullscreenButton.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+        _fullscreenButton.layer.cornerRadius = 20;
+        _fullscreenButton.clipsToBounds = YES;
+        _fullscreenButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+        [_fullscreenButton setImage:[UIImage imageNamed:@"VideoFullscreenIcon"] forState:UIControlStateNormal];
+        [_fullscreenButton setImage:[UIImage imageNamed:@"ShrinkScreenIcon"] forState:UIControlStateSelected];
+        [_fullscreenButton addTarget:self action:@selector(fullscreenButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _fullscreenButton;
+}
+
+- (UIButton *)nextPageButton {
+    if (!_nextPageButton) {
+        _nextPageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _nextPageButton.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+        _nextPageButton.layer.cornerRadius = 5;
+        _nextPageButton.clipsToBounds = YES;
+        _nextPageButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+        [_nextPageButton setTitle:@"下一页"  forState:UIControlStateNormal];
+        [_nextPageButton addTarget:self action:@selector(nextPage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _nextPageButton;
+}
+
+- (UIButton *)prePageButton {
+    if (!_prePageButton) {
+        _prePageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _prePageButton.autoresizingMask =  UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+        _prePageButton.layer.cornerRadius = 5;
+        _prePageButton.clipsToBounds = YES;
+        _prePageButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+        [_prePageButton setTitle:@"上一页"  forState:UIControlStateNormal];
+        [_prePageButton addTarget:self action:@selector(prePage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _prePageButton;
+}
+
+- (ESCloudPlayerView *)mediaPlayerView {
+    if (!_mediaPlayerView) {
+        _mediaPlayerView = [[ESCloudPlayerView alloc]initWithFrame:CGRectZero];
+        _mediaPlayerView.backgroundColor = [UIColor blackColor];
+        _mediaPlayerView.delegate = self;
+    }
+    return _mediaPlayerView;
+}
+
 - (UIView*)getView:(UIView *)view {
     if (!view) {
         view = [UIApplication sharedApplication].keyWindow;
@@ -24,7 +82,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
 }
+
+- (void)addConrollItem{
+    [self.mediaPlayerView addSubview:self.fullscreenButton];
+    [self.fullscreenButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(40);
+        make.bottom.mas_equalTo(-15);
+        make.right.mas_equalTo(-10);
+    }];
+    
+    [self.mediaPlayerView addSubview:self.prePageButton];
+    [self.prePageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.fullscreenButton);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(100);
+        make.left.mas_equalTo(self.mediaPlayerView.mas_left).offset(20);
+    }];
+
+    [self.mediaPlayerView addSubview:self.nextPageButton];
+    [self.nextPageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(self.fullscreenButton);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(100);
+        make.left.mas_equalTo(self.prePageButton.mas_right).offset(20);
+    }];
+}
+- (void)fullscreenButtonClick:(UIButton *)sender {
+}
+
+- (void)prePage {
+
+}
+- (void)nextPage {
+}
+
 
 - (void)showMessage:(NSString *)message{
     [self showMessage:message view:self.view];

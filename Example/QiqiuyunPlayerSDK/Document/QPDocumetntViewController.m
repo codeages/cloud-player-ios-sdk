@@ -8,70 +8,103 @@
 
 #import "QPDocumetntViewController.h"
 
-#import <QiqiuyunPlayerSDK/QiqiuyunPlayerView.h>
+#import <ESCloudPlayerSDK/ESCloudPlayerView.h>
 #import "QPJWTTokenTool.h"
-#import <Masonry.h>
+#import <QMUIKit/QMUIKit.h>
 
-#define DOC_RES_NO @"afbf964a4a434924a2a85e71704ac6b0"
-#define DOC_TOKEN_NO @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJubyI6ImFmYmY5NjRhNGE0MzQ5MjRhMmE4NWU3MTcwNGFjNmIwIiwianRpIjoiYTJhNWI5MGMtNzdmMy00NyIsImV4cCI6MTYwNDYzNDQ1MSwidGltZXMiOjEwMDAwMDB9.LhRPgZc4z_YKNHRNAbZGL4uSgQV3lAJiaPdMtaZ2tIQ"
+#define DOC_RES_NO @"19f636fcb4f4470294e69698fe8332f1"
 
-@interface QPDocumetntViewController ()<QiqiuyunPlayerProtocol>
-@property (strong, nonatomic) QiqiuyunPlayerView *qiqiuyunPlayerView;
+@interface QPDocumetntViewController ()<ESCloudPlayerProtocol>
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (copy, nonatomic) NSString *token;
 @property (copy, nonatomic) NSString *resNo;
+@property (strong, nonatomic) QMUIModalPresentationViewController *presentVC;
 
 @end
 
 @implementation QPDocumetntViewController
-- (QiqiuyunPlayerView *)qiqiuyunPlayerView {
-    if (!_qiqiuyunPlayerView) {
-        _qiqiuyunPlayerView = [[QiqiuyunPlayerView alloc]initWithFrame:self.view.bounds];
-        _qiqiuyunPlayerView.backgroundColor = [UIColor blackColor];
-        _qiqiuyunPlayerView.delegate = self;
+
+
+
+- (QMUIModalPresentationViewController *)presentVC{
+    if (!_presentVC) {
+        _presentVC = [[QMUIModalPresentationViewController alloc] init];
+        _presentVC.contentViewMargins = UIEdgeInsetsMake(0, 0, 0, 0);
+        _presentVC.dimmingView.backgroundColor = [UIColor blackColor];
     }
-    return _qiqiuyunPlayerView;
+    return _presentVC;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.qiqiuyunPlayerView];
-    [self.qiqiuyunPlayerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
-    }];
+    self.view.backgroundColor =  [UIColor grayColor];
+    [self.containerView insertSubview:self.mediaPlayerView atIndex:0];
+    self.mediaPlayerView.frame = self.containerView.bounds;
         
+    NSString *token = [QPJWTTokenTool JWTTokenWithPlayload:DOC_RES_NO previewTime:0 headResNo:@"" isPlayAudio:YES];
     [self showProgressInView:self.view];
         __weak typeof(self) _self = self;
-    [self.qiqiuyunPlayerView loadResourceWithToken:DOC_TOKEN_NO resNo:DOC_RES_NO completionHandler:^(NSDictionary * _Nullable resource, NSError * _Nullable error) {
+    [self.mediaPlayerView loadResourceWithToken:token resNo:DOC_RES_NO specifyStartPos:3 completionHandler:^(NSDictionary * _Nullable resource, NSError * _Nullable error) {
         __strong typeof(_self) self = _self;
         [self dissMissProgressInView:self.view];
         if (error) {
                 NSLog(@"\n\n初始化错误: %@\n\n", error);
-
         }
 
     }];
+    [self addConrollItem];
 }
 
-- (IBAction)prePage:(id)sender {
-    [self.qiqiuyunPlayerView.docPlayerContoller  previousPage];
-}
-- (IBAction)nextPage:(id)sender {
-    [self.qiqiuyunPlayerView.docPlayerContoller  nextPage];
+- (void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView documentOnPrepared:(NSDictionary *)data{
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+- (void)fullscreenButtonClick:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        self.presentVC.contentView = self.mediaPlayerView;
+        self.mediaPlayerView.frame = self.presentVC.view.bounds;
+        [self.presentVC showWithAnimated:YES completion:^(BOOL finished) {
+        }];
+    }else{
+        [self.presentVC hideWithAnimated:NO completion:^(BOOL finished) {
+            [self.containerView addSubview:self.mediaPlayerView];
+            self.mediaPlayerView.frame = self.containerView.bounds;
+            self.mediaPlayerView.alpha = 1;
+        }];
+    }
+}
+
+
+- (IBAction)goToOne:(id)sender {
+    [self.mediaPlayerView.docPlayerContoller  scrollToPageAtIndex:0];
+
+}
+- (void)prePage{
+    [self.mediaPlayerView.docPlayerContoller  previousPage];
+}
+
+- (void)nextPage {
+    [self.mediaPlayerView.docPlayerContoller  nextPage];
+}
+
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView documentOnPrepared:(NSDictionary *)data{
     [self showMessage:@"加载完成"];
 }
 
-- (void)mediaPlayerDocumentOnEnd:(QiqiuyunPlayerView *)playerView{
+- (void)mediaPlayerDocumentOnEnd:(ESCloudPlayerView *)playerView{
     [self showMessage:@"已经到底了"];
 }
 
-- (void)mediaPlayer:(QiqiuyunPlayerView *)playerView documentPagechanged:(NSInteger)index{
+- (void)mediaPlayer:(ESCloudPlayerView *)playerView documentPagechanged:(NSInteger)index{
     self.title = [NSString stringWithFormat:@"%ld/%ld", (long)index, (long)playerView.docPlayerContoller.pageCount];
 }
 
-- (void)mediaPlayerDocumentOnFullscreen:(QiqiuyunPlayerView *)playerView{
+- (void)mediaPlayerDocumentOnFullscreen:(ESCloudPlayerView *)playerView{
     
 }
 @end

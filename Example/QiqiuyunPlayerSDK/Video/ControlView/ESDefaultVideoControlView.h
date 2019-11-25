@@ -1,6 +1,6 @@
 //
 //  ESDefaultVideoControlView.h
-//  ESMediaPlayerSDK_Example
+//  ESqiqiuyunPlayerSDK_Example
 //
 //  Created by aaayi on 2019/10/30.
 //  Copyright © 2019 ayia. All rights reserved.
@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class ESVideoPlayerSlider;
 @interface ESDefaultVideoControlView : ESVideoPlayerControlView
 @property (nonatomic, assign, getter=isFullScreen) BOOL fullScreen;
-
+//子类可重写
+- (BOOL)showFullScreen;
 @end
 
 NS_ASSUME_NONNULL_END

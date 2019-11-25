@@ -14,7 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FBRetainCycleDetector.xcscheme</key>
+		<key>ESCloudPlayerSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -30,11 +30,6 @@
 			<false/>
 		</dict>
 		<key>JWT.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MLeaksFinder.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -60,11 +55,6 @@
 			<false/>
 		</dict>
 		<key>QMUIKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>QiqiuyunPlayerSDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
