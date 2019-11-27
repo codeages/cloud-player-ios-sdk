@@ -1,6 +1,6 @@
 {
   "name": "ESCloudPlayerSDK",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "summary": "气球云资源播放器",
   "description": "气球云资源播放器，支持视频、音频、PPT、文档资源文件",
   "homepage": "https://github.com/codeages/qiqiuyun-player-ios-sdk",
@@ -12,8 +12,8 @@
     "ayia": "twilightzzy@126.com"
   },
   "source": {
-    "git": "/Users/tony/Documents/work/code/qiqiuyun-player-ios-sdk",
-    "tag": "0.1.0"
+    "git": "https://github.com/codeages/cloud-player-ios-sdk.git",
+    "tag": "1.0.0"
   },
   "platforms": {
     "ios": "9.0"

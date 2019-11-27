@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Base64 (1.1.2)
-  - ESCloudPlayerSDK (0.1.0):
+  - ESCloudPlayerSDK (1.0.0):
     - AFNetworking
     - GCDWebServer
     - Masonry
@@ -345,7 +345,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  ESCloudPlayerSDK: 6fba050fec5840d4ead8a6636931d27843e6bd2e
+  ESCloudPlayerSDK: 8f1c46212a123b589ab1a2208586c4c6f906b260
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
