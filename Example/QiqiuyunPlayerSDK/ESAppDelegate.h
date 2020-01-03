@@ -8,7 +8,6 @@
 
 @import UIKit;
 #import "ESDownloadResourceModel.h"
-#import <ESCloudPlayerSDK/ESM3U8DownloadManager.h>
 
 @interface ESAppDelegate : UIResponder <UIApplicationDelegate>
 
