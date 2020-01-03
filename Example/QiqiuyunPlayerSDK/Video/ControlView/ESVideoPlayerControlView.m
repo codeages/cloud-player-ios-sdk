@@ -1,6 +1,6 @@
 //
 //  ESVideoPlayerControlView.m
-//  ESMediaPlayerSDK_Example
+//  ESqiqiuyunPlayerSDK_Example
 //
 //  Created by aaayi on 2019/10/30.
 //  Copyright © 2019 ayia. All rights reserved.
@@ -15,6 +15,7 @@
         _landscape = NO;
         _currentDefinitionIndex = 0;
         _currentRateIndex = 0;
+        _topBarAlpha = 1;
     }
     return self;
 }
@@ -45,6 +46,11 @@
 - (void)pause
 {
 }
+
+- (void)stop
+{
+}
+
 
 - (void)needAppear{
     

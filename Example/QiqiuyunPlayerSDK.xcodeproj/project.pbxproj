@@ -13,8 +13,6 @@
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* QPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* QPAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* QPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* QPViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -24,20 +22,51 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		C96DD429A2756E01C4F48D37 /* Pods_QiqiuyunPlayerSDK_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15079BC3F1F349480FFEB3A2 /* Pods_QiqiuyunPlayerSDK_Tests.framework */; };
-		EA7269C62370183700F5457B /* QPJWTTokenTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269C42370183700F5457B /* QPJWTTokenTool.m */; };
-		EA7269C92370187800F5457B /* QPRotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269C82370187800F5457B /* QPRotationManager.m */; };
-		EA7269CE2370193000F5457B /* UINavigationController+RotationControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269CB2370193000F5457B /* UINavigationController+RotationControl.m */; };
-		EA7269DA2370195000F5457B /* ESVideoPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D32370195000F5457B /* ESVideoPlayerControlView.m */; };
-		EA7269DB2370195000F5457B /* UIView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D42370195000F5457B /* UIView+Fade.m */; };
-		EA7269DC2370195000F5457B /* ESVideoPlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D52370195000F5457B /* ESVideoPlayerSlider.m */; };
-		EA7269DD2370195000F5457B /* ESDefaultVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D72370195000F5457B /* ESDefaultVideoControlView.m */; };
-		EA7269DE2370195000F5457B /* ESPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269D82370195000F5457B /* ESPopoverView.m */; };
-		EA7269E623701B1300F5457B /* ESAudioPlayerCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */; };
-		EA7269E923701B7600F5457B /* QPAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269E823701B7600F5457B /* QPAudioViewController.m */; };
-		EA7269EC23701BBD00F5457B /* QPDocumetntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269EB23701BBD00F5457B /* QPDocumetntViewController.m */; };
-		EA7269EF23701BFA00F5457B /* QPPPTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7269EE23701BFA00F5457B /* QPPPTViewController.m */; };
-		EA97BF312370167B009B6CBF /* QPVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA97BF302370167B009B6CBF /* QPVideoViewController.m */; };
-		EAE9B58B2383FC58000C775B /* QPAnimationPPTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */; };
+		EA1007EC23BF187000756D53 /* CloudResource.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA1007EB23BF187000756D53 /* CloudResource.plist */; };
+		EA1007EE23BF189700756D53 /* DownloadResource.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA1007ED23BF189700756D53 /* DownloadResource.plist */; };
+		EA78D1FB23BEEFC50054C956 /* ESViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D19C23BEEFC30054C956 /* ESViewController.m */; };
+		EA78D1FC23BEEFC50054C956 /* ESBasePlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A123BEEFC40054C956 /* ESBasePlayViewController.m */; };
+		EA78D1FD23BEEFC50054C956 /* ESBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A223BEEFC40054C956 /* ESBaseViewController.m */; };
+		EA78D1FE23BEEFC50054C956 /* ESBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A323BEEFC40054C956 /* ESBaseTableViewController.m */; };
+		EA78D1FF23BEEFC50054C956 /* ESAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A423BEEFC40054C956 /* ESAppDelegate.m */; };
+		EA78D20023BEEFC50054C956 /* NSString+extno.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A723BEEFC40054C956 /* NSString+extno.m */; };
+		EA78D20123BEEFC50054C956 /* ESUploadSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1A923BEEFC40054C956 /* ESUploadSimulator.m */; };
+		EA78D20223BEEFC50054C956 /* UINavigationBar+Edusoho.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1AA23BEEFC40054C956 /* UINavigationBar+Edusoho.m */; };
+		EA78D20323BEEFC50054C956 /* ESTempFile.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1AD23BEEFC40054C956 /* ESTempFile.m */; };
+		EA78D20423BEEFC50054C956 /* ESJWTTokenTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1AF23BEEFC40054C956 /* ESJWTTokenTool.m */; };
+		EA78D20523BEEFC50054C956 /* PKCircleView+Edusoho.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1B023BEEFC40054C956 /* PKCircleView+Edusoho.m */; };
+		EA78D20623BEEFC50054C956 /* ESDocumetntViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1B423BEEFC40054C956 /* ESDocumetntViewController.m */; };
+		EA78D20723BEEFC50054C956 /* ESDownloadBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1B623BEEFC40054C956 /* ESDownloadBaseViewController.m */; };
+		EA78D20823BEEFC50054C956 /* ESPlayM3U8FileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1BA23BEEFC40054C956 /* ESPlayM3U8FileViewController.m */; };
+		EA78D20923BEEFC50054C956 /* ESDownloadResourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1BC23BEEFC40054C956 /* ESDownloadResourceModel.m */; };
+		EA78D20B23BEEFC50054C956 /* ESDownloadedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1BE23BEEFC40054C956 /* ESDownloadedViewController.m */; };
+		EA78D20C23BEEFC50054C956 /* ESDownloadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1BF23BEEFC40054C956 /* ESDownloadingViewController.m */; };
+		EA78D20E23BEEFC50054C956 /* ESDownloadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1C123BEEFC40054C956 /* ESDownloadTableViewCell.xib */; };
+		EA78D20F23BEEFC50054C956 /* ESDownloadContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1C223BEEFC40054C956 /* ESDownloadContainerViewController.m */; };
+		EA78D21023BEEFC50054C956 /* ESDownloadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1C523BEEFC40054C956 /* ESDownloadTableViewCell.m */; };
+		EA78D21123BEEFC50054C956 /* ESDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1C723BEEFC40054C956 /* ESDownloadViewController.m */; };
+		EA78D21223BEEFC50054C956 /* ESPlayM3U8FileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1CA23BEEFC40054C956 /* ESPlayM3U8FileViewController.xib */; };
+		EA78D21323BEEFC50054C956 /* ESAdminResourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1CC23BEEFC40054C956 /* ESAdminResourceViewController.m */; };
+		EA78D21423BEEFC50054C956 /* ESVideoPlayerSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1D223BEEFC40054C956 /* ESVideoPlayerSlider.m */; };
+		EA78D21523BEEFC50054C956 /* ESVideoPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1D423BEEFC40054C956 /* ESVideoPlayerControlView.m */; };
+		EA78D21623BEEFC50054C956 /* ESPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1D523BEEFC40054C956 /* ESPopoverView.m */; };
+		EA78D21723BEEFC50054C956 /* UIView+Fade.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1D623BEEFC40054C956 /* UIView+Fade.m */; };
+		EA78D21823BEEFC50054C956 /* ESDefaultVideoControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1DA23BEEFC40054C956 /* ESDefaultVideoControlView.m */; };
+		EA78D21923BEEFC50054C956 /* UIViewController+RotationControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1DE23BEEFC40054C956 /* UIViewController+RotationControl.m */; };
+		EA78D21A23BEEFC50054C956 /* UINavigationController+RotationControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1DF23BEEFC40054C956 /* UINavigationController+RotationControl.m */; };
+		EA78D21B23BEEFC50054C956 /* ESRotationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1E023BEEFC40054C956 /* ESRotationManager.m */; };
+		EA78D21C23BEEFC50054C956 /* ESVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1E223BEEFC40054C956 /* ESVideoViewController.m */; };
+		EA78D21D23BEEFC50054C956 /* ESPPTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1E523BEEFC50054C956 /* ESPPTViewController.m */; };
+		EA78D21E23BEEFC50054C956 /* ESAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1E923BEEFC50054C956 /* ESAudioViewController.m */; };
+		EA78D21F23BEEFC50054C956 /* ESAudioPlayerCoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1EA23BEEFC50054C956 /* ESAudioPlayerCoverView.xib */; };
+		EA78D22023BEEFC50054C956 /* ESAudioPlayerCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1EB23BEEFC50054C956 /* ESAudioPlayerCoverView.m */; };
+		EA78D22123BEEFC50054C956 /* ESUploadTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1EE23BEEFC50054C956 /* ESUploadTableViewCell.xib */; };
+		EA78D22223BEEFC50054C956 /* ESUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1EF23BEEFC50054C956 /* ESUploadViewController.m */; };
+		EA78D22323BEEFC50054C956 /* ESUploadTableViewSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1F023BEEFC50054C956 /* ESUploadTableViewSectionHeader.m */; };
+		EA78D22423BEEFC50054C956 /* ESUploadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1F123BEEFC50054C956 /* ESUploadTableViewCell.m */; };
+		EA78D22523BEEFC50054C956 /* ESUploadTableViewSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1F223BEEFC50054C956 /* ESUploadTableViewSectionHeader.xib */; };
+		EA78D22623BEEFC50054C956 /* ESTopTipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA78D1F823BEEFC50054C956 /* ESTopTipView.xib */; };
+		EA78D22723BEEFC50054C956 /* ESTopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA78D1F923BEEFC50054C956 /* ESTopTipView.m */; };
 		EAF0F7C8237D401F00D677C6 /* QPBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF0F7C7237D401F00D677C6 /* QPBaseViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -64,10 +93,6 @@
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* QiqiuyunPlayerSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "QiqiuyunPlayerSDK-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* QPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* QPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* QPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* QPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* QiqiuyunPlayerSDK_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiqiuyunPlayerSDK_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -81,34 +106,89 @@
 		C93AF0D40CF6A80DD6177AF8 /* Pods-QiqiuyunPlayerSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiqiuyunPlayerSDK_Tests.release.xcconfig"; path = "Target Support Files/Pods-QiqiuyunPlayerSDK_Tests/Pods-QiqiuyunPlayerSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		DA914BC58D11E83C6D9F786C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		E4A10294AC69A5899CF80B19 /* Pods_QiqiuyunPlayerSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QiqiuyunPlayerSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA7269C42370183700F5457B /* QPJWTTokenTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPJWTTokenTool.m; sourceTree = "<group>"; };
-		EA7269C52370183700F5457B /* QPJWTTokenTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPJWTTokenTool.h; sourceTree = "<group>"; };
-		EA7269C72370187800F5457B /* QPRotationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPRotationManager.h; sourceTree = "<group>"; };
-		EA7269C82370187800F5457B /* QPRotationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPRotationManager.m; sourceTree = "<group>"; };
-		EA7269CB2370193000F5457B /* UINavigationController+RotationControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RotationControl.m"; sourceTree = "<group>"; };
-		EA7269CC2370193000F5457B /* UINavigationController+RotationControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RotationControl.h"; sourceTree = "<group>"; };
-		EA7269D02370195000F5457B /* ESDefaultVideoControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDefaultVideoControlView.h; sourceTree = "<group>"; };
-		EA7269D12370195000F5457B /* ESPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPopoverView.h; sourceTree = "<group>"; };
-		EA7269D22370195000F5457B /* UIView+Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Fade.h"; sourceTree = "<group>"; };
-		EA7269D32370195000F5457B /* ESVideoPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESVideoPlayerControlView.m; sourceTree = "<group>"; };
-		EA7269D42370195000F5457B /* UIView+Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Fade.m"; sourceTree = "<group>"; };
-		EA7269D52370195000F5457B /* ESVideoPlayerSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESVideoPlayerSlider.m; sourceTree = "<group>"; };
-		EA7269D62370195000F5457B /* ESVideoPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoPlayerControlView.h; sourceTree = "<group>"; };
-		EA7269D72370195000F5457B /* ESDefaultVideoControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDefaultVideoControlView.m; sourceTree = "<group>"; };
-		EA7269D82370195000F5457B /* ESPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPopoverView.m; sourceTree = "<group>"; };
-		EA7269D92370195000F5457B /* ESVideoPlayerSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoPlayerSlider.h; sourceTree = "<group>"; };
-		EA7269DF23701B1300F5457B /* ESAudioPlayerCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAudioPlayerCoverView.h; sourceTree = "<group>"; };
-		EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAudioPlayerCoverView.m; sourceTree = "<group>"; };
-		EA7269E723701B7600F5457B /* QPAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPAudioViewController.h; sourceTree = "<group>"; };
-		EA7269E823701B7600F5457B /* QPAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPAudioViewController.m; sourceTree = "<group>"; };
-		EA7269EA23701BBD00F5457B /* QPDocumetntViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPDocumetntViewController.h; sourceTree = "<group>"; };
-		EA7269EB23701BBD00F5457B /* QPDocumetntViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPDocumetntViewController.m; sourceTree = "<group>"; };
-		EA7269ED23701BFA00F5457B /* QPPPTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPPPTViewController.h; sourceTree = "<group>"; };
-		EA7269EE23701BFA00F5457B /* QPPPTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPPPTViewController.m; sourceTree = "<group>"; };
-		EA97BF2F2370167B009B6CBF /* QPVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPVideoViewController.h; sourceTree = "<group>"; };
-		EA97BF302370167B009B6CBF /* QPVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPVideoViewController.m; sourceTree = "<group>"; };
-		EAE9B5892383FC58000C775B /* QPAnimationPPTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPAnimationPPTViewController.h; sourceTree = "<group>"; };
-		EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPAnimationPPTViewController.m; sourceTree = "<group>"; };
+		EA1007EA23BF168800756D53 /* ESCloudSDKDemoCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESCloudSDKDemoCommon.h; sourceTree = "<group>"; };
+		EA1007EB23BF187000756D53 /* CloudResource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CloudResource.plist; sourceTree = "<group>"; };
+		EA1007ED23BF189700756D53 /* DownloadResource.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DownloadResource.plist; sourceTree = "<group>"; };
+		EA78D19C23BEEFC30054C956 /* ESViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESViewController.m; sourceTree = "<group>"; };
+		EA78D19E23BEEFC40054C956 /* ESBasePlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBasePlayViewController.h; sourceTree = "<group>"; };
+		EA78D19F23BEEFC40054C956 /* ESBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBaseViewController.h; sourceTree = "<group>"; };
+		EA78D1A023BEEFC40054C956 /* ESBaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESBaseTableViewController.h; sourceTree = "<group>"; };
+		EA78D1A123BEEFC40054C956 /* ESBasePlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESBasePlayViewController.m; sourceTree = "<group>"; };
+		EA78D1A223BEEFC40054C956 /* ESBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESBaseViewController.m; sourceTree = "<group>"; };
+		EA78D1A323BEEFC40054C956 /* ESBaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESBaseTableViewController.m; sourceTree = "<group>"; };
+		EA78D1A423BEEFC40054C956 /* ESAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAppDelegate.m; sourceTree = "<group>"; };
+		EA78D1A623BEEFC40054C956 /* ESTempFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTempFile.h; sourceTree = "<group>"; };
+		EA78D1A723BEEFC40054C956 /* NSString+extno.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+extno.m"; sourceTree = "<group>"; };
+		EA78D1A823BEEFC40054C956 /* ESJWTTokenTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESJWTTokenTool.h; sourceTree = "<group>"; };
+		EA78D1A923BEEFC40054C956 /* ESUploadSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESUploadSimulator.m; sourceTree = "<group>"; };
+		EA78D1AA23BEEFC40054C956 /* UINavigationBar+Edusoho.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Edusoho.m"; sourceTree = "<group>"; };
+		EA78D1AB23BEEFC40054C956 /* PKCircleView+Edusoho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PKCircleView+Edusoho.h"; sourceTree = "<group>"; };
+		EA78D1AC23BEEFC40054C956 /* NSString+extno.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+extno.h"; sourceTree = "<group>"; };
+		EA78D1AD23BEEFC40054C956 /* ESTempFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTempFile.m; sourceTree = "<group>"; };
+		EA78D1AE23BEEFC40054C956 /* ESUploadSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESUploadSimulator.h; sourceTree = "<group>"; };
+		EA78D1AF23BEEFC40054C956 /* ESJWTTokenTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESJWTTokenTool.m; sourceTree = "<group>"; };
+		EA78D1B023BEEFC40054C956 /* PKCircleView+Edusoho.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PKCircleView+Edusoho.m"; sourceTree = "<group>"; };
+		EA78D1B123BEEFC40054C956 /* UINavigationBar+Edusoho.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Edusoho.h"; sourceTree = "<group>"; };
+		EA78D1B323BEEFC40054C956 /* ESDocumetntViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDocumetntViewController.h; sourceTree = "<group>"; };
+		EA78D1B423BEEFC40054C956 /* ESDocumetntViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDocumetntViewController.m; sourceTree = "<group>"; };
+		EA78D1B623BEEFC40054C956 /* ESDownloadBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadBaseViewController.m; sourceTree = "<group>"; };
+		EA78D1B723BEEFC40054C956 /* ESDownloadContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadContainerViewController.h; sourceTree = "<group>"; };
+		EA78D1B923BEEFC40054C956 /* ESDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadViewController.h; sourceTree = "<group>"; };
+		EA78D1BA23BEEFC40054C956 /* ESPlayM3U8FileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPlayM3U8FileViewController.m; sourceTree = "<group>"; };
+		EA78D1BB23BEEFC40054C956 /* ESDownloadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadTableViewCell.h; sourceTree = "<group>"; };
+		EA78D1BC23BEEFC40054C956 /* ESDownloadResourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadResourceModel.m; sourceTree = "<group>"; };
+		EA78D1BE23BEEFC40054C956 /* ESDownloadedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadedViewController.m; sourceTree = "<group>"; };
+		EA78D1BF23BEEFC40054C956 /* ESDownloadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadingViewController.m; sourceTree = "<group>"; };
+		EA78D1C123BEEFC40054C956 /* ESDownloadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESDownloadTableViewCell.xib; sourceTree = "<group>"; };
+		EA78D1C223BEEFC40054C956 /* ESDownloadContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadContainerViewController.m; sourceTree = "<group>"; };
+		EA78D1C323BEEFC40054C956 /* ESDownloadBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadBaseViewController.h; sourceTree = "<group>"; };
+		EA78D1C423BEEFC40054C956 /* ESDownloadResourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadResourceModel.h; sourceTree = "<group>"; };
+		EA78D1C523BEEFC40054C956 /* ESDownloadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadTableViewCell.m; sourceTree = "<group>"; };
+		EA78D1C623BEEFC40054C956 /* ESPlayM3U8FileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPlayM3U8FileViewController.h; sourceTree = "<group>"; };
+		EA78D1C723BEEFC40054C956 /* ESDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDownloadViewController.m; sourceTree = "<group>"; };
+		EA78D1C823BEEFC40054C956 /* ESDownloadedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadedViewController.h; sourceTree = "<group>"; };
+		EA78D1C923BEEFC40054C956 /* ESDownloadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDownloadingViewController.h; sourceTree = "<group>"; };
+		EA78D1CA23BEEFC40054C956 /* ESPlayM3U8FileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESPlayM3U8FileViewController.xib; sourceTree = "<group>"; };
+		EA78D1CC23BEEFC40054C956 /* ESAdminResourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAdminResourceViewController.m; sourceTree = "<group>"; };
+		EA78D1CD23BEEFC40054C956 /* ESAdminResourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAdminResourceViewController.h; sourceTree = "<group>"; };
+		EA78D1CF23BEEFC40054C956 /* ESVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoViewController.h; sourceTree = "<group>"; };
+		EA78D1D123BEEFC40054C956 /* UIView+Fade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Fade.h"; sourceTree = "<group>"; };
+		EA78D1D223BEEFC40054C956 /* ESVideoPlayerSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESVideoPlayerSlider.m; sourceTree = "<group>"; };
+		EA78D1D323BEEFC40054C956 /* ESDefaultVideoControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESDefaultVideoControlView.h; sourceTree = "<group>"; };
+		EA78D1D423BEEFC40054C956 /* ESVideoPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESVideoPlayerControlView.m; sourceTree = "<group>"; };
+		EA78D1D523BEEFC40054C956 /* ESPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPopoverView.m; sourceTree = "<group>"; };
+		EA78D1D623BEEFC40054C956 /* UIView+Fade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Fade.m"; sourceTree = "<group>"; };
+		EA78D1D723BEEFC40054C956 /* ESVideoPlayerSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoPlayerSlider.h; sourceTree = "<group>"; };
+		EA78D1D823BEEFC40054C956 /* ESPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPopoverView.h; sourceTree = "<group>"; };
+		EA78D1D923BEEFC40054C956 /* ESVideoPlayerControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESVideoPlayerControlView.h; sourceTree = "<group>"; };
+		EA78D1DA23BEEFC40054C956 /* ESDefaultVideoControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESDefaultVideoControlView.m; sourceTree = "<group>"; };
+		EA78D1DC23BEEFC40054C956 /* ESRotationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRotationManager.h; sourceTree = "<group>"; };
+		EA78D1DD23BEEFC40054C956 /* UINavigationController+RotationControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+RotationControl.h"; sourceTree = "<group>"; };
+		EA78D1DE23BEEFC40054C956 /* UIViewController+RotationControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RotationControl.m"; sourceTree = "<group>"; };
+		EA78D1DF23BEEFC40054C956 /* UINavigationController+RotationControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+RotationControl.m"; sourceTree = "<group>"; };
+		EA78D1E023BEEFC40054C956 /* ESRotationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESRotationManager.m; sourceTree = "<group>"; };
+		EA78D1E123BEEFC40054C956 /* UIViewController+RotationControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RotationControl.h"; sourceTree = "<group>"; };
+		EA78D1E223BEEFC40054C956 /* ESVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESVideoViewController.m; sourceTree = "<group>"; };
+		EA78D1E323BEEFC40054C956 /* ESAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAppDelegate.h; sourceTree = "<group>"; };
+		EA78D1E523BEEFC50054C956 /* ESPPTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESPPTViewController.m; sourceTree = "<group>"; };
+		EA78D1E623BEEFC50054C956 /* ESPPTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESPPTViewController.h; sourceTree = "<group>"; };
+		EA78D1E823BEEFC50054C956 /* ESAudioPlayerCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAudioPlayerCoverView.h; sourceTree = "<group>"; };
+		EA78D1E923BEEFC50054C956 /* ESAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAudioViewController.m; sourceTree = "<group>"; };
+		EA78D1EA23BEEFC50054C956 /* ESAudioPlayerCoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESAudioPlayerCoverView.xib; sourceTree = "<group>"; };
+		EA78D1EB23BEEFC50054C956 /* ESAudioPlayerCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESAudioPlayerCoverView.m; sourceTree = "<group>"; };
+		EA78D1EC23BEEFC50054C956 /* ESAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESAudioViewController.h; sourceTree = "<group>"; };
+		EA78D1EE23BEEFC50054C956 /* ESUploadTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESUploadTableViewCell.xib; sourceTree = "<group>"; };
+		EA78D1EF23BEEFC50054C956 /* ESUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESUploadViewController.m; sourceTree = "<group>"; };
+		EA78D1F023BEEFC50054C956 /* ESUploadTableViewSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESUploadTableViewSectionHeader.m; sourceTree = "<group>"; };
+		EA78D1F123BEEFC50054C956 /* ESUploadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESUploadTableViewCell.m; sourceTree = "<group>"; };
+		EA78D1F223BEEFC50054C956 /* ESUploadTableViewSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESUploadTableViewSectionHeader.xib; sourceTree = "<group>"; };
+		EA78D1F323BEEFC50054C956 /* ESUploadTableViewSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESUploadTableViewSectionHeader.h; sourceTree = "<group>"; };
+		EA78D1F423BEEFC50054C956 /* ESUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESUploadViewController.h; sourceTree = "<group>"; };
+		EA78D1F523BEEFC50054C956 /* ESUploadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESUploadTableViewCell.h; sourceTree = "<group>"; };
+		EA78D1F723BEEFC50054C956 /* ESTopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTopTipView.h; sourceTree = "<group>"; };
+		EA78D1F823BEEFC50054C956 /* ESTopTipView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ESTopTipView.xib; sourceTree = "<group>"; };
+		EA78D1F923BEEFC50054C956 /* ESTopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESTopTipView.m; sourceTree = "<group>"; };
+		EA78D1FA23BEEFC50054C956 /* ESViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESViewController.h; sourceTree = "<group>"; };
 		EAF0F7C6237D401F00D677C6 /* QPBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPBaseViewController.h; sourceTree = "<group>"; };
 		EAF0F7C7237D401F00D677C6 /* QPBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QPBaseViewController.m; sourceTree = "<group>"; };
 		F605790FB8AE13A9B6184801 /* Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig"; path = "Target Support Files/Pods-QiqiuyunPlayerSDK_Example/Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -177,18 +257,25 @@
 		6003F593195388D20070C39A /* Example for QiqiuyunPlayerSDK */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269C32370183700F5457B /* Helper */,
-				EA97BF28237015F9009B6CBF /* Audio */,
-				EA97BF26237015F9009B6CBF /* Document */,
-				EA97BF27237015F9009B6CBF /* PPT */,
-				EA97BF29237015F9009B6CBF /* Video */,
-				6003F59C195388D20070C39A /* QPAppDelegate.h */,
-				6003F59D195388D20070C39A /* QPAppDelegate.m */,
+				EA78D1CB23BEEFC40054C956 /* Admin */,
+				EA78D1E723BEEFC50054C956 /* Audio */,
+				EA78D19D23BEEFC40054C956 /* Base */,
+				EA78D1B223BEEFC40054C956 /* Document */,
+				EA78D1B523BEEFC40054C956 /* DownloadViewController */,
+				EA78D1E323BEEFC40054C956 /* ESAppDelegate.h */,
+				EA78D1A423BEEFC40054C956 /* ESAppDelegate.m */,
+				EA78D1FA23BEEFC50054C956 /* ESViewController.h */,
+				EA78D19C23BEEFC30054C956 /* ESViewController.m */,
+				EA1007EB23BF187000756D53 /* CloudResource.plist */,
+				EA1007ED23BF189700756D53 /* DownloadResource.plist */,
+				EA78D1A523BEEFC40054C956 /* Helper */,
+				EA78D1E423BEEFC50054C956 /* PPT */,
+				EA78D1ED23BEEFC50054C956 /* UploadViewController */,
+				EA78D1CE23BEEFC40054C956 /* Video */,
+				EA78D1F623BEEFC50054C956 /* View */,
 				EAF0F7C6237D401F00D677C6 /* QPBaseViewController.h */,
 				EAF0F7C7237D401F00D677C6 /* QPBaseViewController.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* QPViewController.h */,
-				6003F5A6195388D20070C39A /* QPViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -204,6 +291,7 @@
 				6003F596195388D20070C39A /* InfoPlist.strings */,
 				6003F599195388D20070C39A /* main.m */,
 				6003F59B195388D20070C39A /* QiqiuyunPlayerSDK-Prefix.pch */,
+				EA1007EA23BF168800756D53 /* ESCloudSDKDemoCommon.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -248,83 +336,166 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EA7269C32370183700F5457B /* Helper */ = {
+		EA78D19D23BEEFC40054C956 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269C42370183700F5457B /* QPJWTTokenTool.m */,
-				EA7269C52370183700F5457B /* QPJWTTokenTool.h */,
+				EA78D19E23BEEFC40054C956 /* ESBasePlayViewController.h */,
+				EA78D19F23BEEFC40054C956 /* ESBaseViewController.h */,
+				EA78D1A023BEEFC40054C956 /* ESBaseTableViewController.h */,
+				EA78D1A123BEEFC40054C956 /* ESBasePlayViewController.m */,
+				EA78D1A223BEEFC40054C956 /* ESBaseViewController.m */,
+				EA78D1A323BEEFC40054C956 /* ESBaseTableViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		EA78D1A523BEEFC40054C956 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				EA78D1A623BEEFC40054C956 /* ESTempFile.h */,
+				EA78D1A723BEEFC40054C956 /* NSString+extno.m */,
+				EA78D1A823BEEFC40054C956 /* ESJWTTokenTool.h */,
+				EA78D1A923BEEFC40054C956 /* ESUploadSimulator.m */,
+				EA78D1AA23BEEFC40054C956 /* UINavigationBar+Edusoho.m */,
+				EA78D1AB23BEEFC40054C956 /* PKCircleView+Edusoho.h */,
+				EA78D1AC23BEEFC40054C956 /* NSString+extno.h */,
+				EA78D1AD23BEEFC40054C956 /* ESTempFile.m */,
+				EA78D1AE23BEEFC40054C956 /* ESUploadSimulator.h */,
+				EA78D1AF23BEEFC40054C956 /* ESJWTTokenTool.m */,
+				EA78D1B023BEEFC40054C956 /* PKCircleView+Edusoho.m */,
+				EA78D1B123BEEFC40054C956 /* UINavigationBar+Edusoho.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		EA97BF26237015F9009B6CBF /* Document */ = {
+		EA78D1B223BEEFC40054C956 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269EA23701BBD00F5457B /* QPDocumetntViewController.h */,
-				EA7269EB23701BBD00F5457B /* QPDocumetntViewController.m */,
+				EA78D1B323BEEFC40054C956 /* ESDocumetntViewController.h */,
+				EA78D1B423BEEFC40054C956 /* ESDocumetntViewController.m */,
 			);
 			path = Document;
 			sourceTree = "<group>";
 		};
-		EA97BF27237015F9009B6CBF /* PPT */ = {
+		EA78D1B523BEEFC40054C956 /* DownloadViewController */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269ED23701BFA00F5457B /* QPPPTViewController.h */,
-				EA7269EE23701BFA00F5457B /* QPPPTViewController.m */,
-				EAE9B5892383FC58000C775B /* QPAnimationPPTViewController.h */,
-				EAE9B58A2383FC58000C775B /* QPAnimationPPTViewController.m */,
+				EA78D1B623BEEFC40054C956 /* ESDownloadBaseViewController.m */,
+				EA78D1B723BEEFC40054C956 /* ESDownloadContainerViewController.h */,
+				EA78D1B923BEEFC40054C956 /* ESDownloadViewController.h */,
+				EA78D1BA23BEEFC40054C956 /* ESPlayM3U8FileViewController.m */,
+				EA78D1BB23BEEFC40054C956 /* ESDownloadTableViewCell.h */,
+				EA78D1BC23BEEFC40054C956 /* ESDownloadResourceModel.m */,
+				EA78D1BE23BEEFC40054C956 /* ESDownloadedViewController.m */,
+				EA78D1BF23BEEFC40054C956 /* ESDownloadingViewController.m */,
+				EA78D1C123BEEFC40054C956 /* ESDownloadTableViewCell.xib */,
+				EA78D1C223BEEFC40054C956 /* ESDownloadContainerViewController.m */,
+				EA78D1C323BEEFC40054C956 /* ESDownloadBaseViewController.h */,
+				EA78D1C423BEEFC40054C956 /* ESDownloadResourceModel.h */,
+				EA78D1C523BEEFC40054C956 /* ESDownloadTableViewCell.m */,
+				EA78D1C623BEEFC40054C956 /* ESPlayM3U8FileViewController.h */,
+				EA78D1C723BEEFC40054C956 /* ESDownloadViewController.m */,
+				EA78D1C823BEEFC40054C956 /* ESDownloadedViewController.h */,
+				EA78D1C923BEEFC40054C956 /* ESDownloadingViewController.h */,
+				EA78D1CA23BEEFC40054C956 /* ESPlayM3U8FileViewController.xib */,
 			);
-			path = PPT;
+			path = DownloadViewController;
 			sourceTree = "<group>";
 		};
-		EA97BF28237015F9009B6CBF /* Audio */ = {
+		EA78D1CB23BEEFC40054C956 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269E723701B7600F5457B /* QPAudioViewController.h */,
-				EA7269E823701B7600F5457B /* QPAudioViewController.m */,
-				EA7269DF23701B1300F5457B /* ESAudioPlayerCoverView.h */,
-				EA7269E323701B1300F5457B /* ESAudioPlayerCoverView.m */,
+				EA78D1CC23BEEFC40054C956 /* ESAdminResourceViewController.m */,
+				EA78D1CD23BEEFC40054C956 /* ESAdminResourceViewController.h */,
 			);
-			path = Audio;
+			path = Admin;
 			sourceTree = "<group>";
 		};
-		EA97BF29237015F9009B6CBF /* Video */ = {
+		EA78D1CE23BEEFC40054C956 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				EA97BF2A237015F9009B6CBF /* ControlView */,
-				EA97BF2B237015F9009B6CBF /* Rotation */,
-				EA97BF2F2370167B009B6CBF /* QPVideoViewController.h */,
-				EA97BF302370167B009B6CBF /* QPVideoViewController.m */,
+				EA78D1CF23BEEFC40054C956 /* ESVideoViewController.h */,
+				EA78D1D023BEEFC40054C956 /* ControlView */,
+				EA78D1DB23BEEFC40054C956 /* Rotation */,
+				EA78D1E223BEEFC40054C956 /* ESVideoViewController.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
 		};
-		EA97BF2A237015F9009B6CBF /* ControlView */ = {
+		EA78D1D023BEEFC40054C956 /* ControlView */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269D02370195000F5457B /* ESDefaultVideoControlView.h */,
-				EA7269D72370195000F5457B /* ESDefaultVideoControlView.m */,
-				EA7269D12370195000F5457B /* ESPopoverView.h */,
-				EA7269D82370195000F5457B /* ESPopoverView.m */,
-				EA7269D62370195000F5457B /* ESVideoPlayerControlView.h */,
-				EA7269D32370195000F5457B /* ESVideoPlayerControlView.m */,
-				EA7269D92370195000F5457B /* ESVideoPlayerSlider.h */,
-				EA7269D52370195000F5457B /* ESVideoPlayerSlider.m */,
-				EA7269D22370195000F5457B /* UIView+Fade.h */,
-				EA7269D42370195000F5457B /* UIView+Fade.m */,
+				EA78D1D123BEEFC40054C956 /* UIView+Fade.h */,
+				EA78D1D223BEEFC40054C956 /* ESVideoPlayerSlider.m */,
+				EA78D1D323BEEFC40054C956 /* ESDefaultVideoControlView.h */,
+				EA78D1D423BEEFC40054C956 /* ESVideoPlayerControlView.m */,
+				EA78D1D523BEEFC40054C956 /* ESPopoverView.m */,
+				EA78D1D623BEEFC40054C956 /* UIView+Fade.m */,
+				EA78D1D723BEEFC40054C956 /* ESVideoPlayerSlider.h */,
+				EA78D1D823BEEFC40054C956 /* ESPopoverView.h */,
+				EA78D1D923BEEFC40054C956 /* ESVideoPlayerControlView.h */,
+				EA78D1DA23BEEFC40054C956 /* ESDefaultVideoControlView.m */,
 			);
 			path = ControlView;
 			sourceTree = "<group>";
 		};
-		EA97BF2B237015F9009B6CBF /* Rotation */ = {
+		EA78D1DB23BEEFC40054C956 /* Rotation */ = {
 			isa = PBXGroup;
 			children = (
-				EA7269CC2370193000F5457B /* UINavigationController+RotationControl.h */,
-				EA7269CB2370193000F5457B /* UINavigationController+RotationControl.m */,
-				EA7269C72370187800F5457B /* QPRotationManager.h */,
-				EA7269C82370187800F5457B /* QPRotationManager.m */,
+				EA78D1DC23BEEFC40054C956 /* ESRotationManager.h */,
+				EA78D1DD23BEEFC40054C956 /* UINavigationController+RotationControl.h */,
+				EA78D1DE23BEEFC40054C956 /* UIViewController+RotationControl.m */,
+				EA78D1DF23BEEFC40054C956 /* UINavigationController+RotationControl.m */,
+				EA78D1E023BEEFC40054C956 /* ESRotationManager.m */,
+				EA78D1E123BEEFC40054C956 /* UIViewController+RotationControl.h */,
 			);
 			path = Rotation;
+			sourceTree = "<group>";
+		};
+		EA78D1E423BEEFC50054C956 /* PPT */ = {
+			isa = PBXGroup;
+			children = (
+				EA78D1E523BEEFC50054C956 /* ESPPTViewController.m */,
+				EA78D1E623BEEFC50054C956 /* ESPPTViewController.h */,
+			);
+			path = PPT;
+			sourceTree = "<group>";
+		};
+		EA78D1E723BEEFC50054C956 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				EA78D1E823BEEFC50054C956 /* ESAudioPlayerCoverView.h */,
+				EA78D1E923BEEFC50054C956 /* ESAudioViewController.m */,
+				EA78D1EA23BEEFC50054C956 /* ESAudioPlayerCoverView.xib */,
+				EA78D1EB23BEEFC50054C956 /* ESAudioPlayerCoverView.m */,
+				EA78D1EC23BEEFC50054C956 /* ESAudioViewController.h */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		EA78D1ED23BEEFC50054C956 /* UploadViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EA78D1EE23BEEFC50054C956 /* ESUploadTableViewCell.xib */,
+				EA78D1EF23BEEFC50054C956 /* ESUploadViewController.m */,
+				EA78D1F023BEEFC50054C956 /* ESUploadTableViewSectionHeader.m */,
+				EA78D1F123BEEFC50054C956 /* ESUploadTableViewCell.m */,
+				EA78D1F223BEEFC50054C956 /* ESUploadTableViewSectionHeader.xib */,
+				EA78D1F323BEEFC50054C956 /* ESUploadTableViewSectionHeader.h */,
+				EA78D1F423BEEFC50054C956 /* ESUploadViewController.h */,
+				EA78D1F523BEEFC50054C956 /* ESUploadTableViewCell.h */,
+			);
+			path = UploadViewController;
+			sourceTree = "<group>";
+		};
+		EA78D1F623BEEFC50054C956 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EA78D1F723BEEFC50054C956 /* ESTopTipView.h */,
+				EA78D1F823BEEFC50054C956 /* ESTopTipView.xib */,
+				EA78D1F923BEEFC50054C956 /* ESTopTipView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,10 +582,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA1007EE23BF189700756D53 /* DownloadResource.plist in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				EA78D22523BEEFC50054C956 /* ESUploadTableViewSectionHeader.xib in Resources */,
+				EA78D21223BEEFC50054C956 /* ESPlayM3U8FileViewController.xib in Resources */,
+				EA78D21F23BEEFC50054C956 /* ESAudioPlayerCoverView.xib in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				EA78D22123BEEFC50054C956 /* ESUploadTableViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				EA78D20E23BEEFC50054C956 /* ESDownloadTableViewCell.xib in Resources */,
+				EA78D22623BEEFC50054C956 /* ESTopTipView.xib in Resources */,
+				EA1007EC23BF187000756D53 /* CloudResource.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,24 +639,36 @@
 				"${PODS_ROOT}/Target Support Files/Pods-QiqiuyunPlayerSDK_Example/Pods-QiqiuyunPlayerSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
+				"${BUILT_PRODUCTS_DIR}/DownloadButton/DownloadButton.framework",
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
+				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/MMLayout/MMLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/QMUIKit/QMUIKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
+				"${BUILT_PRODUCTS_DIR}/SWTableViewCell/SWTableViewCell.framework",
+				"${BUILT_PRODUCTS_DIR}/TYPagerController/TYPagerController.framework",
 				"${BUILT_PRODUCTS_DIR}/YYKit/YYKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DownloadButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMUIKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWTableViewCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TYPagerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,24 +705,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA7269DC2370195000F5457B /* ESVideoPlayerSlider.m in Sources */,
-				EA7269DA2370195000F5457B /* ESVideoPlayerControlView.m in Sources */,
-				EA7269DE2370195000F5457B /* ESPopoverView.m in Sources */,
-				EA7269CE2370193000F5457B /* UINavigationController+RotationControl.m in Sources */,
-				EA7269E923701B7600F5457B /* QPAudioViewController.m in Sources */,
-				EA7269C62370183700F5457B /* QPJWTTokenTool.m in Sources */,
-				6003F59E195388D20070C39A /* QPAppDelegate.m in Sources */,
-				EAE9B58B2383FC58000C775B /* QPAnimationPPTViewController.m in Sources */,
-				EA7269DB2370195000F5457B /* UIView+Fade.m in Sources */,
+				EA78D1FB23BEEFC50054C956 /* ESViewController.m in Sources */,
+				EA78D20723BEEFC50054C956 /* ESDownloadBaseViewController.m in Sources */,
+				EA78D1FF23BEEFC50054C956 /* ESAppDelegate.m in Sources */,
+				EA78D20823BEEFC50054C956 /* ESPlayM3U8FileViewController.m in Sources */,
+				EA78D22023BEEFC50054C956 /* ESAudioPlayerCoverView.m in Sources */,
+				EA78D1FC23BEEFC50054C956 /* ESBasePlayViewController.m in Sources */,
+				EA78D20423BEEFC50054C956 /* ESJWTTokenTool.m in Sources */,
+				EA78D20F23BEEFC50054C956 /* ESDownloadContainerViewController.m in Sources */,
 				EAF0F7C8237D401F00D677C6 /* QPBaseViewController.m in Sources */,
-				EA7269DD2370195000F5457B /* ESDefaultVideoControlView.m in Sources */,
-				EA7269EC23701BBD00F5457B /* QPDocumetntViewController.m in Sources */,
-				EA7269C92370187800F5457B /* QPRotationManager.m in Sources */,
-				EA7269EF23701BFA00F5457B /* QPPPTViewController.m in Sources */,
-				EA97BF312370167B009B6CBF /* QPVideoViewController.m in Sources */,
-				EA7269E623701B1300F5457B /* ESAudioPlayerCoverView.m in Sources */,
-				6003F5A7195388D20070C39A /* QPViewController.m in Sources */,
+				EA78D20023BEEFC50054C956 /* NSString+extno.m in Sources */,
+				EA78D21D23BEEFC50054C956 /* ESPPTViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				EA78D21E23BEEFC50054C956 /* ESAudioViewController.m in Sources */,
+				EA78D21923BEEFC50054C956 /* UIViewController+RotationControl.m in Sources */,
+				EA78D21A23BEEFC50054C956 /* UINavigationController+RotationControl.m in Sources */,
+				EA78D22223BEEFC50054C956 /* ESUploadViewController.m in Sources */,
+				EA78D21323BEEFC50054C956 /* ESAdminResourceViewController.m in Sources */,
+				EA78D21623BEEFC50054C956 /* ESPopoverView.m in Sources */,
+				EA78D1FE23BEEFC50054C956 /* ESBaseTableViewController.m in Sources */,
+				EA78D21423BEEFC50054C956 /* ESVideoPlayerSlider.m in Sources */,
+				EA78D22723BEEFC50054C956 /* ESTopTipView.m in Sources */,
+				EA78D21023BEEFC50054C956 /* ESDownloadTableViewCell.m in Sources */,
+				EA78D21B23BEEFC50054C956 /* ESRotationManager.m in Sources */,
+				EA78D1FD23BEEFC50054C956 /* ESBaseViewController.m in Sources */,
+				EA78D21723BEEFC50054C956 /* UIView+Fade.m in Sources */,
+				EA78D20B23BEEFC50054C956 /* ESDownloadedViewController.m in Sources */,
+				EA78D20523BEEFC50054C956 /* PKCircleView+Edusoho.m in Sources */,
+				EA78D21823BEEFC50054C956 /* ESDefaultVideoControlView.m in Sources */,
+				EA78D21523BEEFC50054C956 /* ESVideoPlayerControlView.m in Sources */,
+				EA78D20923BEEFC50054C956 /* ESDownloadResourceModel.m in Sources */,
+				EA78D21123BEEFC50054C956 /* ESDownloadViewController.m in Sources */,
+				EA78D20323BEEFC50054C956 /* ESTempFile.m in Sources */,
+				EA78D20C23BEEFC50054C956 /* ESDownloadingViewController.m in Sources */,
+				EA78D20123BEEFC50054C956 /* ESUploadSimulator.m in Sources */,
+				EA78D21C23BEEFC50054C956 /* ESVideoViewController.m in Sources */,
+				EA78D22323BEEFC50054C956 /* ESUploadTableViewSectionHeader.m in Sources */,
+				EA78D22423BEEFC50054C956 /* ESUploadTableViewCell.m in Sources */,
+				EA78D20623BEEFC50054C956 /* ESDocumetntViewController.m in Sources */,
+				EA78D20223BEEFC50054C956 /* UINavigationBar+Edusoho.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

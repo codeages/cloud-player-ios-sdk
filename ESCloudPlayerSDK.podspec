@@ -45,6 +45,7 @@ Pod::Spec.new do |s|
   }
 
   s.public_header_files = 'ESMediaPlayerSDK/Classes/Public/*.h'
+#  s.prefix_header_contents = '#import <YYKit/YYKit.h>', '#import "ESClouldSDKDefines.h"'
   s.static_framework  =  true
   s.xcconfig = {'OTHER_LDFLAGS' => '-ObjC'}
   s.frameworks = 'AVFoundation','Foundation','WebKit', 'CoreMedia', 'UIKit', 'AVKit'
@@ -53,7 +54,8 @@ Pod::Spec.new do |s|
   s.dependency 'GCDWebServer'
   s.dependency 'AFNetworking'
   s.dependency 'Masonry'
-  s.dependency 'YYKit'
+  s.dependency 'YYKit', '~> 1.0.9'
+  s.dependency 'Qiniu', '~> 7.3'
 
 
 end

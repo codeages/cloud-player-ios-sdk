@@ -12,11 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol ESVideoPlayerControlViewDelegate;
 @interface ESVideoPlayerControlView : UIView
 
-@property NSArray<id> *pointArray;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL isDragging;
 @property (nonatomic, assign) BOOL preview;
 @property (nonatomic, assign, getter = isLandscape) BOOL landscape;
+@property (nonatomic, assign) CGFloat topBarAlpha;
 @property (nonatomic, weak) id<ESVideoPlayerControlViewDelegate> delegate;
 @property (nonatomic, strong) NSArray<NSString *> *definitions;
 @property (nonatomic, assign) NSUInteger currentDefinitionIndex;

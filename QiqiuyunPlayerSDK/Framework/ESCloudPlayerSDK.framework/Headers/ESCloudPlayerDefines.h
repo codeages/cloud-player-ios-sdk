@@ -9,11 +9,12 @@
 #define ESCloudPlayerDefines_h
 typedef NS_ENUM(NSInteger, ESCloudPlayerResourceType) {
     ESCloudPlayerResourceTypeUnknow = 0,
-    ESCloudPlayerResourceTypePPT,
-    ESCloudPlayerResourceTypeDoc,
-    ESCloudPlayerResourceTypeVideo,
-    ESCloudPlayerResourceTypeAudio,
-    ESCloudPlayerResourceTypeAnimationPPT,
+    ESCloudPlayerResourceTypePPT = 1,
+    ESCloudPlayerResourceTypeDoc = 2,
+    ESCloudPlayerResourceTypeVideo = 3,
+    ESCloudPlayerResourceTypeAudio = 4,
+    ESCloudPlayerResourceTypeM3U8Audio = 5,
+    ESCloudPlayerResourceTypeLocalM3U8 = 6,
 };
 
 typedef NS_ENUM(NSInteger, ESCloudSwitchDefinitionStatus) {
@@ -25,10 +26,10 @@ typedef NS_ENUM(NSInteger, ESCloudSwitchDefinitionStatus) {
 
 
 typedef NS_ENUM(NSInteger, ESCloudPlayerVideoDefinition) {
-    ESCloudPlayerVideoDefinitionUnknown = 0,
-    ESCloudPlayerVideoDefinitionSHD,
+    ESCloudPlayerVideoDefinitionSD = 0,
     ESCloudPlayerVideoDefinitionHD,
-    ESCloudPlayerVideoDefinitionSD,
+    ESCloudPlayerVideoDefinitionSHD,
+    ESCloudPlayerVideoDefinitionUnknown,
 };
 
 
@@ -60,6 +61,13 @@ typedef NS_ENUM(NSUInteger, ESCloudPlayerWatermarkPosition) {
     ESCloudPlayerWatermarkPositionBottomRight
 };
 
+
+typedef NS_ENUM(NSUInteger, ESCloudPlayerLogLevel) {
+    ESCloudPlayerLogLevelDetailed = 0,
+    ESCloudPlayerLogLevelSimple,
+    ESCloudPlayerLogLevelNone,
+
+};
 
 
 #endif /* ESCloudPlayerDefines_h */

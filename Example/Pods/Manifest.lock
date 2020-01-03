@@ -15,11 +15,13 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Base64 (1.1.2)
-  - ESCloudPlayerSDK (1.0.0):
+  - DownloadButton (0.1.0)
+  - ESCloudPlayerSDK (1.0.1):
     - AFNetworking
     - GCDWebServer
     - Masonry
-    - YYKit
+    - Qiniu (~> 7.3)
+    - YYKit (~> 1.0.9)
   - GCDWebServer (3.5.3):
     - GCDWebServer/Core (= 3.5.3)
   - GCDWebServer/Core (3.5.3)
@@ -27,7 +29,10 @@ PODS:
   - JWT (2.2.0):
     - Base64 (~> 1.1.2)
   - Masonry (1.1.0)
+  - MGSwipeTableCell (1.6.11)
+  - MJRefresh (3.2.3)
   - MMLayout (0.2.0)
+  - Qiniu (7.3.0)
   - QMUIKit/QMUIComponents (4.0.0):
     - QMUIKit/QMUIComponents/NavigationBarTransition (= 4.0.0)
     - QMUIKit/QMUIComponents/QMUIAlertController (= 4.0.0)
@@ -315,18 +320,32 @@ PODS:
     - QMUIKit/QMUILog
   - QMUIKit/QMUIResources (4.0.0)
   - QMUIKit/QMUIWeakObjectContainer (4.0.0)
+  - SWTableViewCell (0.3.7)
+  - TYPagerController (2.1.2)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - DownloadButton
   - ESCloudPlayerSDK (from `../`)
   - JGProgressHUD
   - JWT
+  - MGSwipeTableCell
+  - MJRefresh
   - MMLayout
   - QMUIKit/QMUIComponents (= 4.0.0)
+  - SWTableViewCell
+  - TYPagerController
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - DownloadButton
+    - MGSwipeTableCell
+    - MJRefresh
+    - Qiniu
+    - SWTableViewCell
+    - TYPagerController
   trunk:
     - AFNetworking
     - Base64
@@ -345,15 +364,21 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
-  ESCloudPlayerSDK: 8f1c46212a123b589ab1a2208586c4c6f906b260
+  DownloadButton: 49a21a89e0d7d1b42d9134f79aaa40e727cd57c3
+  ESCloudPlayerSDK: b294e65a84aa54030cb0477ea7dfd236f539870b
   GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
+  MJRefresh: 2b1214a2dc8f4df4c5dcb028ea2ad4e245425fb7
   MMLayout: 3fb59d58eeb8656c64e61d550fb0088e10666c11
+  Qiniu: a2fb1f87b40f52bc1f386d93c6d48aab09472eae
   QMUIKit: b14f5d06b81d01b908e4fa2e6d0177804c6ae0f6
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 0eff29d84a0cee9ef059f05cbdf667c3e2eebc05
+PODFILE CHECKSUM: 302ff7cf7703a45209042ca839c5d3d41f30224d
 
 COCOAPODS: 1.8.4

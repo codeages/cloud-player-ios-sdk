@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ESVideoPlayerSlider;
 @interface ESDefaultVideoControlView : ESVideoPlayerControlView
 @property (nonatomic, assign, getter=isFullScreen) BOOL fullScreen;
-//子类可重写
+//子类重新
 - (BOOL)showFullScreen;
 @end
 

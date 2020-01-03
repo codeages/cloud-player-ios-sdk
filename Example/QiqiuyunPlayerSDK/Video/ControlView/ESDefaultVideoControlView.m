@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <Masonry/Masonry.h>
-#import <YYKit/UIColor+YYAdd.h>
 #import "ESVideoPlayerSlider.h"
 #import "UIView+Fade.h"
 #import "UIView+MMLayout.h"
@@ -35,7 +34,6 @@
 @property (nonatomic, strong) UIButton                *playeBtn;
 @property (nonatomic, strong) UIButton                *rateBtn;
 @property (nonatomic, strong) ESVideoPlayerSlider   *videoSlider;
-@property (nonatomic, strong) UIProgressView *bottomProgress;
 
 @property (nonatomic, assign)NSTimeInterval currentDuration;
 @property (nonatomic, assign)NSTimeInterval duration;
@@ -67,8 +65,7 @@
         [self.topImageView addSubview:self.backBtn];
         
         [self addSubview:self.playeBtn];
-        [self addSubview:self.bottomProgress];
-
+        
         [self.topImageView addSubview:self.titleLabel];
         [self makeSubViewsConstraints];
         
@@ -176,10 +173,6 @@
         make.center.equalTo(self);
     }];
     
-    [self.bottomProgress mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.equalTo(@(3));
-    }];
 }
 
 
@@ -246,7 +239,8 @@
     __weak typeof(self) _self = self;
     popover.selectRowAtIndex = ^(NSInteger index) {
         __strong typeof(_self) self = _self;
-        [self.resolutionBtn setTitle:self.definitions[index] forState:UIControlStateNormal];
+        NSString *defintion = [self.definitions objectAtIndex:index];
+        [self.resolutionBtn setTitle:defintion forState:UIControlStateNormal];
         if ([self.delegate respondsToSelector:@selector(controlView:switchDefinitionWithIndex:)]) {
             [self.delegate controlView:self switchDefinitionWithIndex:index];
         }
@@ -260,6 +254,9 @@
         return;
     }
     ESPopoverView *popover = [[ESPopoverView alloc] initWithView:sender titles:self.rates images:nil];
+    popover.backColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    popover.titleColor = [UIColor whiteColor];
+    popover.selectedTitleColor = [UIColor blackColor];
     popover.selectedIndex = self.currentRateIndex;
     __weak typeof(self) _self = self;
     popover.selectRowAtIndex = ^(NSInteger index) {
@@ -291,9 +288,14 @@
 
 ///   设置横的约束
 - (void)setOrientationLandscapeConstraint {
+    self.topImageView.alpha = 1;
     self.fullScreen             = YES;
     self.fullScreenBtn.hidden   = YES;
     self.resolutionBtn.hidden   = self.definitions.count > 0?NO:YES;
+    if (self.definitions.count > self.currentDefinitionIndex) {
+        NSString *defintion = [self.definitions objectAtIndex:self.currentDefinitionIndex];
+        [self.resolutionBtn setTitle:defintion forState:UIControlStateNormal];
+    }
     self.rateBtn.hidden   = self.rates.count > 0?NO:YES;;
 
     [self.backBtn setImage:[UIImage imageNamed:@"back_full"] forState:UIControlStateNormal];
@@ -302,7 +304,9 @@
     [self.totalTimeLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         if (self.definitions.count > 0) {
             make.trailing.equalTo(self.resolutionBtn.mas_leading);
-        } else {
+        } else if(self.rates.count > 0){
+            make.trailing.equalTo(self.rateBtn.mas_leading);
+        }else{
             make.trailing.equalTo(self.bottomImageView.mas_trailing);
         }
         make.centerY.equalTo(self.startBtn.mas_centerY);
@@ -319,6 +323,7 @@
 
 /// 设置竖屏的约束
 - (void)setOrientationPortraitConstraint {
+    self.topImageView.alpha = 0;
     if ([self showFullScreen]) {
         self.fullScreenBtn.hidden  = NO;
         self.rateBtn.hidden   = YES;
@@ -336,15 +341,18 @@
             make.width.mas_equalTo(60);
         }];
     }
+    
     self.fullScreen             = NO;
     self.resolutionBtn.hidden   = YES;
+
     [self.bottomImageView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(BOTTOM_IMAGE_VIEW_HEIGHT);
     }];
+    
     self.videoSlider.hiddenPoints = YES;
 }
 
-#pragma mark - private
+#pragma mark - private 
 - (NSTimeInterval)durationWithPosition:(float)position{
     NSTimeInterval time = _duration * position;
     if (time < 0) {
@@ -360,14 +368,12 @@
     [self cancelToolBarFadeOut];
     [[self.topImageView fadeShow] fadeOut:5];
     [[self.bottomImageView fadeShow] fadeOut:5];
-    [self.bottomProgress fadeOut:0.0];
 }
 
 - (void)fadeOutToolBar{
     [self cancelToolBarFadeOut];
     [self.topImageView fadeOut:0.2];
     [self.bottomImageView fadeOut:0.2];
-    [self.bottomProgress fadeShow];
 }
 
 - (BOOL)isShowingToolBar{
@@ -376,7 +382,6 @@
 - (void)cancelToolBarFadeOut{
     [self.topImageView cancelFadeOut];
     [self.bottomImageView cancelFadeOut];
-    [self.self cancelFadeOut];
 }
 
 - (BOOL)showFullScreen{
@@ -465,7 +470,8 @@
 - (ESVideoPlayerSlider *)videoSlider {
     if (!_videoSlider) {
         _videoSlider                       = [[ESVideoPlayerSlider alloc] init];
-        _videoSlider.minimumTrackTintColor =  [UIColor colorWithRGB:0x03C777];
+        [_videoSlider setThumbImage:VideoPlayerImage(@"slider_thumb") forState:UIControlStateNormal];
+        _videoSlider.minimumTrackTintColor = [UIColor redColor];
         [_videoSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
         [_videoSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
         [_videoSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
@@ -516,15 +522,6 @@
     return _rateBtn;
 }
 
-- (UIProgressView *)bottomProgress{
-    if (!_bottomProgress) {
-        _bottomProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-        _bottomProgress.progressTintColor = [UIColor colorWithRGB:0x03C777];
-        _bottomProgress.trackTintColor = [UIColor colorWithRGB:0xBDC2C6];
-    }
-    return _bottomProgress;
-}
-
 - (void)setPreview:(BOOL)preview{
     [super setPreview:preview];
     _previewLabel.hidden = !preview;
@@ -552,6 +549,7 @@
     self.backgroundColor             = [UIColor clearColor];
     
 }
+
 
 - (void)play{
     [self setPlayState:YES];
@@ -604,8 +602,6 @@ totalTime:(NSTimeInterval)totalTime
     self.currentTimeLabel.text = [self stringForSeconds:currentTime];
     self.totalTimeLabel.text = [self stringForSeconds:totalTime];
     [self.videoSlider.progressView setProgress:playable animated:NO];
-    [self.bottomProgress setProgress:progress animated:NO];
-
 }
 
 

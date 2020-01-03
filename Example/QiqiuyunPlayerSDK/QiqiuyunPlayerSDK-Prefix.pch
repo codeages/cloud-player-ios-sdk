@@ -10,7 +10,16 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#import <Masonry/Masonry.h>
+#import <YYKit/YYKit.h>
+#import <ESCloudPlayerSDK/ESCloudPlayerSDK.h>
+#import "ESCloudSDKDemoCommon.h"
+
 #ifdef __OBJC__
     @import UIKit;
     @import Foundation;
 #endif
+
+#define GREEN_COLOR_RGB 0x4CCCF9
+#define GRAY_COLOR_RGB 0x666666
+#define RED_COLOR_RGB 0xFF5454

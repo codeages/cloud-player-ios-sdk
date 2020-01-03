@@ -15,10 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ESCloudPlayerProtocol;
 @interface ESCloudPlayerView : UIView
-@property (nonatomic, copy, class) NSString *debugBaseURLPath;
 @property (nonatomic, copy, readonly) NSString *token;
 @property (nonatomic, copy, readonly) NSString *respNo;
-@property (nonatomic, copy, readonly) NSDictionary *playMetas;//播放器元数据
+@property (nonatomic, copy) NSDictionary *playMetas;//播放器元数据
 @property (nonatomic, assign, readonly) ESCloudPlayerResourceType mediType;
 @property (nonatomic, assign, readonly) UIView *videoPreviewView;
 @property (nonatomic, strong, readonly) NSArray<NSDictionary *> *definitionList;
@@ -27,11 +26,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<ESCloudPlayerProtocol> delegate;
 
 @property (readonly) id<ESVideoContollerProtocol> videoPlayerContoller;
-@property (readonly) id<ESPPTContollerProtocol> pptPlayerContoller;
+//@property (readonly) id<ESPPTContollerProtocol> pptPlayerContoller;
 @property (readonly) id<ESDocumentContollerProtocol> docPlayerContoller;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)initWithFrame:(CGRect)frame baseURL:(NSURL * _Nullable)baseURL userId:(NSString *_Nullable)userId userName:(NSString *_Nullable)userName;
+- (instancetype)initWithFrame:(CGRect)frame userId:(NSString *_Nullable)userId userName:(NSString *_Nullable)userName;
 
 
 - (void)loadResourceWithToken:(NSString *)token resNo:(NSString *)resNo  specifyStartPos:(NSInteger)specifyStartPos completionHandler:(void (^ _Nullable)(NSDictionary * _Nullable playMetas, NSError * _Nullable error))completionHandler;
+- (void)playM3U8FileWithPlayURL:(NSURL *)URL subtitleURL:(NSURL *)subtitleURL;
+- (void)playM3U8FileWithPlayURL:(NSURL *)URL specifyStartTime:(NSTimeInterval)specifyStartTime subtitleURL:(NSURL *)subtitleURL headLength:(NSTimeInterval)headLength;
 - (void)destory;
 
 @end

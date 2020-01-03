@@ -1,17 +1,17 @@
 //
 //  main.m
-//  QiqiuyunPlayerSDK
+//  ESCloudPlayerSDK
 //
-//  Created by ayia on 11/04/2019.
-//  Copyright (c) 2019 ayia. All rights reserved.
+//  Created by aaayia on 11/22/2019.
+//  Copyright (c) 2019 aaayia. All rights reserved.
 //
 
 @import UIKit;
-#import "QPAppDelegate.h"
+#import "ESAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([QPAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ESAppDelegate class]));
     }
 }

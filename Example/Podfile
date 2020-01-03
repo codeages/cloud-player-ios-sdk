@@ -1,3 +1,5 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 use_frameworks!
 
 platform :ios, '9.0'
@@ -9,6 +11,11 @@ target 'QiqiuyunPlayerSDK_Example' do
   pod "JWT"
   pod 'MMLayout'
 #  pod 'MLeaksFinder', :configurations => ['Debug']
+  pod "DownloadButton"
+  pod 'TYPagerController'
+  pod 'SWTableViewCell'
+  pod 'MGSwipeTableCell'
+  pod 'MJRefresh'
 
   target 'QiqiuyunPlayerSDK_Tests' do
     inherit! :search_paths

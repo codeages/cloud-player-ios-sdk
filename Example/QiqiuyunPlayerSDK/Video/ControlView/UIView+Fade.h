@@ -1,6 +1,6 @@
 //
 //  UIView+Fade.h
-//  ESMediaPlayerSDK_Example
+//  ESqiqiuyunPlayerSDK_Example
 //
 //  Created by aaayi on 2019/10/30.
 //  Copyright © 2019 ayia. All rights reserved.
