@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ESSessionManager;
 @class ESDownloadCache;
 @class ESSafeQueue;
-@interface ESBaseTask : NSObject<YYModel>
+@interface ESBaseTask : NSObject
 @property (nonatomic, assign) ESDownloadStatus status;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURL *currentURL;
