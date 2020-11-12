@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "ESDownloadCommon.h"
+#import <YYKit/NSObject+YYModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class ESSessionManager;
 @class ESDownloadCache;
 @class ESSafeQueue;
-@interface ESBaseTask : NSObject
+@interface ESBaseTask : NSObject<YYModel>
 @property (nonatomic, assign) ESDownloadStatus status;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) NSURL *currentURL;

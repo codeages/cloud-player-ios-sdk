@@ -33,14 +33,15 @@ FOUNDATION_EXPORT NSString * const ESM3U8DownloadTaskFailureNotification;
 @property (nonatomic, strong, readonly) NSArray<NSURL *> *subtitlesFilePath;
 @property (nonatomic, strong, readonly) NSURL *watermarkFilePath;
 
-- (instancetype)initWithURL:(NSURL *)url info:(ESM3U8DownloadInfo *)info cache:(ESDownloadCache *)cache  operationQueue:(dispatch_queue_t)operationQueue;
-
 @property (readonly) NSString *currentMediaName;
 @property (readonly) NSString *downloadM3U8FilePath;
 @property (readonly) NSString *downloadM3U8MediaPath;
 @property (readonly) NSString *downloadM3U8SubtitlePath;
 @property (readonly) NSString *downloadM3U8KeyPath;
 @property (readonly) NSString *downloadM3U8WatermarkPath;
+
+- (instancetype)initWithURL:(NSURL *)url info:(ESM3U8DownloadInfo *)info cache:(ESDownloadCache *)cache  operationQueue:(dispatch_queue_t)operationQueue;
+
 @end
 
 NS_ASSUME_NONNULL_END

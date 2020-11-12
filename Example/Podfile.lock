@@ -1,38 +1,40 @@
 PODS:
-  - AFNetworking (3.2.1):
-    - AFNetworking/NSURLSession (= 3.2.1)
-    - AFNetworking/Reachability (= 3.2.1)
-    - AFNetworking/Security (= 3.2.1)
-    - AFNetworking/Serialization (= 3.2.1)
-    - AFNetworking/UIKit (= 3.2.1)
-  - AFNetworking/NSURLSession (3.2.1):
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.1)
-  - AFNetworking/Security (3.2.1)
-  - AFNetworking/Serialization (3.2.1)
-  - AFNetworking/UIKit (3.2.1):
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - Base64 (1.1.2)
   - DownloadButton (0.1.0)
-  - ESCloudPlayerSDK (1.0.1):
+  - ESCloudPlayerSDK (2.0.2):
     - AFNetworking
     - GCDWebServer
     - Masonry
     - Qiniu (~> 7.3)
     - YYKit (~> 1.0.9)
-  - GCDWebServer (3.5.3):
-    - GCDWebServer/Core (= 3.5.3)
-  - GCDWebServer/Core (3.5.3)
-  - JGProgressHUD (2.1)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
+  - HappyDNS (0.3.17)
+  - JGProgressHUD (2.2)
   - JWT (2.2.0):
     - Base64 (~> 1.1.2)
   - Masonry (1.1.0)
   - MGSwipeTableCell (1.6.11)
-  - MJRefresh (3.2.3)
-  - MMLayout (0.2.0)
-  - Qiniu (7.3.0)
+  - MJRefresh (3.5.0)
+  - MMLayout (0.3.0)
+  - Qiniu (7.4.4):
+    - HappyDNS (~> 0.3.17)
   - QMUIKit/QMUIComponents (4.0.0):
     - QMUIKit/QMUIComponents/NavigationBarTransition (= 4.0.0)
     - QMUIKit/QMUIComponents/QMUIAlertController (= 4.0.0)
@@ -340,21 +342,21 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - DownloadButton
-    - MGSwipeTableCell
-    - MJRefresh
-    - Qiniu
-    - SWTableViewCell
-    - TYPagerController
-  trunk:
     - AFNetworking
     - Base64
+    - DownloadButton
     - GCDWebServer
+    - HappyDNS
     - JGProgressHUD
     - JWT
     - Masonry
+    - MGSwipeTableCell
+    - MJRefresh
     - MMLayout
+    - Qiniu
     - QMUIKit
+    - SWTableViewCell
+    - TYPagerController
     - YYKit
 
 EXTERNAL SOURCES:
@@ -362,18 +364,19 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   DownloadButton: 49a21a89e0d7d1b42d9134f79aaa40e727cd57c3
-  ESCloudPlayerSDK: b294e65a84aa54030cb0477ea7dfd236f539870b
-  GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
-  JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  ESCloudPlayerSDK: e1abcd4113608cfeb64ad328315644a37ad7bdfd
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
+  HappyDNS: 848ef73e24f2b0e2752064223ce2dc0dd88900ea
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   JWT: cf73c0ab0dac762df3de8a3f1164352089d97780
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MGSwipeTableCell: b804e4e450dee439c42250be90bd50458bf67fce
-  MJRefresh: 2b1214a2dc8f4df4c5dcb028ea2ad4e245425fb7
-  MMLayout: 3fb59d58eeb8656c64e61d550fb0088e10666c11
-  Qiniu: a2fb1f87b40f52bc1f386d93c6d48aab09472eae
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  MMLayout: d559edecd69fbcb348368ba90917e047ab1c544e
+  Qiniu: 529d25de615c6ad1cb587f9d165a160d98e9fac9
   QMUIKit: b14f5d06b81d01b908e4fa2e6d0177804c6ae0f6
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TYPagerController: 262556ecef99986d26ed77fb1288a198ed42f4af
@@ -381,4 +384,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 302ff7cf7703a45209042ca839c5d3d41f30224d
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3

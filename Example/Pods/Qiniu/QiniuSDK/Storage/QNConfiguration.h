@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "QNRecorderDelegate.h"
-
+#import "QNDns.h"
+#import "QNZone.h"
 /**
- *    断点上传时的分块大小
+ * 断点上传时的分块大小
  */
 extern const UInt32 kQNBlockSize;
+
+/**
+ *  DNS默认缓存时间
+ */
+extern const UInt32 kQNDefaultDnsCacheTime;
 
 /**
  *    转换为用户需要的url
@@ -26,6 +32,7 @@ typedef NSString * (^QNUrlConvert)(NSString *url);
 @class QNConfigurationBuilder;
 @class QNZone;
 @class QNReportConfig;
+
 /**
  *    Builder block
  *
@@ -51,9 +58,14 @@ typedef void (^QNConfigurationBuilderBlock)(QNConfigurationBuilder *builder);
 @property (readonly) UInt32 putThreshold;
 
 /**
- *    上传失败的重试次数
+ *    上传失败时每个上传域名的重试次数，默认重试3次
  */
 @property (readonly) UInt32 retryMax;
+
+/**
+ *    重试前等待时长，默认0.5s
+ */
+@property (readonly) NSTimeInterval retryInterval;
 
 /**
  *    超时时间 单位 秒
@@ -77,6 +89,11 @@ typedef void (^QNConfigurationBuilderBlock)(QNConfigurationBuilder *builder);
 
 @property (nonatomic, readonly) QNReportConfig *reportConfig;
 
+/**
+ *    重试时是否允许使用备用上传域名，默认为YES
+ */
+@property (nonatomic, assign) BOOL allowBackupHost;
+
 @property (nonatomic, readonly) id<QNRecorderDelegate> recorder;
 
 @property (nonatomic, readonly) QNRecorderKeyGenerator recorderKeyGen;
@@ -85,118 +102,43 @@ typedef void (^QNConfigurationBuilderBlock)(QNConfigurationBuilder *builder);
 
 @property (nonatomic, readonly) QNUrlConvert converter;
 
-@property (readonly) BOOL disableATS;
-
 + (instancetype)build:(QNConfigurationBuilderBlock)block;
 
 @end
 
-typedef void (^QNPrequeryReturn)(int code);
 
-@class QNUpToken;
-@class QNZoneInfo;
-
-@interface QNZone : NSObject
-
-@property (nonatomic, strong) NSArray<NSString *> *upDomainList;
-@property (nonatomic, strong) QNZoneInfo *zoneInfo;
+#define kQNGlobalConfiguration [QNGlobalConfiguration shared]
+@interface QNGlobalConfiguration : NSObject
 
 /**
- *    默认上传服务器地址列表
+ *   是否开启dns预解析 默认开启
  */
-- (void)preQuery:(QNUpToken *)token
-              on:(QNPrequeryReturn)ret;
+@property(nonatomic, assign)BOOL isDnsOpen;
 
-- (NSString *)up:(QNUpToken *)token
-         isHttps:(BOOL)isHttps
-    frozenDomain:(NSString *)frozenDomain;
+/**
+ *   dns 预取失败后 会进行重新预取  rePreHostNum为最多尝试次数
+ */
+@property(nonatomic, assign)UInt32 dnsRepreHostNum;
+
+/**
+ *   dns预取缓存时间  单位：秒
+ */
+@property(nonatomic, assign)UInt32 dnsCacheTime;
+
+/**
+ *   自定义DNS解析客户端host
+ */
+@property(nonatomic, strong) id <QNDnsDelegate> dns;
+
+/**
+ *   dns解析结果本地缓存路径
+ */
+@property(nonatomic,  copy, readonly)NSString *dnscacheDir;
+
++ (instancetype)shared;
 
 @end
 
-@interface QNZoneInfo : NSObject
-
-@property (readonly, nonatomic) long ttl;
-@property (readonly, nonatomic) NSMutableArray<NSString *> *upDomainsList;
-@property (readonly, nonatomic) NSMutableDictionary *upDomainsDic;
-
-- (instancetype)init:(long)ttl
-       upDomainsList:(NSMutableArray<NSString *> *)upDomainsList
-        upDomainsDic:(NSMutableDictionary *)upDomainsDic;
-- (QNZoneInfo *)buildInfoFromJson:(NSDictionary *)resp;
-
-@end
-
-@interface QNFixedZone : QNZone
-
-/**
- *    zone 0 华东
- *
- *    @return 实例
- */
-+ (instancetype)zone0;
-
-/**
- *    zone 1 华北
- *
- *    @return 实例
- */
-+ (instancetype)zone1;
-
-/**
- *    zone 2 华南
- *
- *    @return 实例
- */
-+ (instancetype)zone2;
-
-/**
- *    zone Na0 北美
- *
- *    @return 实例
- */
-+ (instancetype)zoneNa0;
-
-/**
- *    zone As0 新加坡
- *
- *    @return 实例
-*/
-+ (instancetype)zoneAs0;
-
-/**
- *    Zone初始化方法
- *
- *    @param upList     默认上传服务器地址列表
- *
- *    @return Zone实例
- */
-- (instancetype)initWithupDomainList:(NSArray<NSString *> *)upList;
-
-/**
- *    Zone初始化方法
- *
- *    @param upList     默认上传服务器地址列表
- *
- *    @return Zone实例
- */
-+ (instancetype)createWithHost:(NSArray<NSString *> *)upList;
-
-- (void)preQuery:(QNUpToken *)token
-              on:(QNPrequeryReturn)ret;
-
-- (NSString *)up:(QNUpToken *)token
-         isHttps:(BOOL)isHttps
-    frozenDomain:(NSString *)frozenDomain;
-@end
-
-@interface QNAutoZone : QNZone
-
-
-- (NSString *)up:(QNUpToken *)token
-         isHttps:(BOOL)isHttps
-    frozenDomain:(NSString *)frozenDomain;
-
-@end
 
 @interface QNConfigurationBuilder : NSObject
 
@@ -216,9 +158,14 @@ typedef void (^QNPrequeryReturn)(int code);
 @property (assign) UInt32 putThreshold;
 
 /**
- *    上传失败的重试次数
+ *    上传失败时每个上传域名的重试次数，默认重试3次
  */
 @property (assign) UInt32 retryMax;
+
+/**
+ *    重试前等待时长，默认0.5s
+ */
+@property (assign) NSTimeInterval retryInterval;
 
 /**
  *    超时时间 单位 秒
@@ -229,6 +176,11 @@ typedef void (^QNPrequeryReturn)(int code);
  *    是否使用 https，默认为 YES
  */
 @property (nonatomic, assign) BOOL useHttps;
+
+/**
+ *    重试时是否允许使用备用上传域名，默认为YES
+ */
+@property (nonatomic, assign) BOOL allowBackupHost;
 
 /**
  *   是否开启并发分片上传，默认为NO
@@ -249,7 +201,5 @@ typedef void (^QNPrequeryReturn)(int code);
 @property (nonatomic, strong) NSDictionary *proxy;
 
 @property (nonatomic, strong) QNUrlConvert converter;
-
-@property (assign) BOOL disableATS;
 
 @end

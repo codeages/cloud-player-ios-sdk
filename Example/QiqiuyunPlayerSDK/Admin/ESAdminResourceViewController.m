@@ -71,7 +71,7 @@
 - (void)fetchResourceList{
     @weakify(self);
     [self showProgressInView:self.view];
-    [self.apiSession GET:@"api/resources" parameters:@{@"limit":@"100", @"start":@"0", @"order":@"DESC",@"sortBy":@"id"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession GET:@"api/resources" parameters:@{@"limit":@"100", @"start":@"0", @"order":@"DESC",@"sortBy":@"id"} headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         @strongify(self);
         [self.tableView.mj_header endRefreshing];
         [self dissMissProgressInView:self.view];
@@ -90,7 +90,7 @@
     NSString *path = [NSString stringWithFormat:@"api/resources/%@/delete",model.no];
     [self showProgressInView:self.view];
     @weakify(self);
-    [self.apiSession POST:path parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession POST:path parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         @strongify(self);
         [self dissMissProgressInView:self.view];
         [self  fetchResourceList];
@@ -109,7 +109,7 @@
     fileName = [NSString stringWithFormat:@"%@.%@",fileName,model.fileName.pathExtension];
     [self showProgressInView:self.view];
     NSString *path = [NSString stringWithFormat:@"api/resources/%@/update",model.no];
-    [self.apiSession POST:path parameters:@{@"no":model.no?:@"",@"name":fileName} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession POST:path parameters:@{@"no":model.no?:@"",@"name":fileName} headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self dissMissProgressInView:self.view];
         [[self.tableView mj_header] beginRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -122,7 +122,7 @@
 - (void)getDownloadURL:(NSUInteger)index{
     ESDownloadResourceModel *model = self.resourceModels[index];
     NSString *path = [NSString stringWithFormat:@"api/resources/%@/downloadUrl",model.no];
-    [self.apiSession GET:path parameters:@{@"no":model.no} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession GET:path parameters:@{@"no":model.no} headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self showError:error view:self.view];
@@ -132,7 +132,7 @@
 - (void)getShareURL:(NSUInteger)index{
     ESDownloadResourceModel *model = self.resourceModels[index];
     NSString *path = [NSString stringWithFormat:@"api/resources/%@/shareUrl",model.no];
-    [self.apiSession GET:path parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession GET:path parameters:nil headers:nil progress:nil  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [self showError:error view:self.view];

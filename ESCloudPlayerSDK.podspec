@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ESCloudPlayerSDK'
-  s.version          = '2.0.2'
+  s.version          = '2.1.0'
   s.summary          = '气球云资源播放器'
 
 # This description is used to generate tags and improve search results.
@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
 #  s.prefix_header_contents = '#import <YYKit/YYKit.h>', '#import "ESClouldSDKDefines.h"'
   s.static_framework  =  true
   s.xcconfig = {'OTHER_LDFLAGS' => '-ObjC'}
-  s.frameworks = 'AVFoundation','Foundation','WebKit', 'CoreMedia', 'UIKit', 'AVKit'
+  s.frameworks = 'AVFoundation','Foundation','WebKit', 'CoreMedia', 'UIKit', 'AVKit', 'CoreTelephony', 'Photos', 'MapKit'
   s.libraries = 'objc'
 
   s.dependency 'GCDWebServer'

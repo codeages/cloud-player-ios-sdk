@@ -112,7 +112,7 @@
 - (void)fetchResourceList{
     @weakify(self);
     [self showProgressInView:self.view];
-    [self.apiSession GET:@"api/resources" parameters:@{@"limit":@"20", @"start":@"0", @"order":@"DESC",@"sortBy":@"id"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [self.apiSession GET:@"api/resources" parameters:@{@"limit":@"20", @"start":@"0", @"order":@"DESC",@"sortBy":@"id"} headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         @strongify(self);
         [self dissMissProgressInView:self.view];
         if (responseObject) {

@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<ESCloudPlayerProtocol> delegate;
 
 @property (readonly) id<ESVideoContollerProtocol> videoPlayerContoller;
-//@property (readonly) id<ESPPTContollerProtocol> pptPlayerContoller;
 @property (readonly) id<ESDocumentContollerProtocol> docPlayerContoller;
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -82,17 +81,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 资源播放出错 
 ///
 - (void)mediaPlayer:(ESCloudPlayerView *)playerView onFail:(nonnull NSError *)error;
-
-
-///
-///PPT 滚动事件
-///
-- (void)mediaPlayer:(ESCloudPlayerView *)playerView pptScrollPageAtIndex:(NSInteger)index;
-
-///
-/// PPT 点击事件
-///
-- (void)mediaPlayer:(ESCloudPlayerView *)playerView pptTapPageAtIndex:(NSInteger)index;
 
 /// document
 - (void)mediaPlayerDocumentOnEnd:(ESCloudPlayerView *)playerView;
