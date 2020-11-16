@@ -1,10 +1,10 @@
-/*****
+/**
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- *****/
+ */
 
 //
 //  QMUIConfiguration.m
@@ -83,48 +83,54 @@ static BOOL QMUI_hasAppliedInitialTemplate;
     // Automatically look for templates and apply them
     // @see https://github.com/Tencent/QMUI_iOS/issues/264
     Protocol *protocol = @protocol(QMUIConfigurationTemplateProtocol);
-    int numberOfClasses = objc_getClassList(NULL, 0);
-    if (numberOfClasses > 0) {
-        Class *classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numberOfClasses);
-        numberOfClasses = objc_getClassList(classes, numberOfClasses);
-        for (int i = 0; i < numberOfClasses; i++) {
-            Class class = classes[i];
-            // 这里用 containsString 是考虑到 Swift 里 className 由“项目前缀+class 名”组成，如果用 hasPrefix 就无法判断了
-            // Use `containsString` instead of `hasPrefix` because class names in Swift have project prefix prepended
-            if ([NSStringFromClass(class) containsString:@"QMUIConfigurationTemplate"] && [class conformsToProtocol:protocol]) {
-                if ([class instancesRespondToSelector:@selector(shouldApplyTemplateAutomatically)]) {
-                    id<QMUIConfigurationTemplateProtocol> template = [[class alloc] init];
-                    if ([template shouldApplyTemplateAutomatically]) {
-                        QMUI_hasAppliedInitialTemplate = YES;
-                        [template applyConfigurationTemplate];
-                        _active = YES;// 标志配置表已生效
-                        // 只应用第一个 shouldApplyTemplateAutomatically 的主题
-                        // Only apply the first template returned
-                        break;
-                    }
+    classref_t *classesref = nil;
+    Class *classes = nil;
+    int numberOfClasses = qmui_getProjectClassList(&classesref);
+    if (numberOfClasses <= 0) {
+        numberOfClasses = objc_getClassList(NULL, 0);
+        classes = (__unsafe_unretained Class *)malloc(sizeof(Class) * numberOfClasses);
+        objc_getClassList(classes, numberOfClasses);
+    }
+    for (NSInteger i = 0; i < numberOfClasses; i++) {
+        Class class = classesref ? (__bridge Class)classesref[i] : classes[i];
+        // 这里用 containsString 是考虑到 Swift 里 className 由“项目前缀+class 名”组成，如果用 hasPrefix 就无法判断了
+        // Use `containsString` instead of `hasPrefix` because class names in Swift have project prefix prepended
+        if ([NSStringFromClass(class) containsString:@"QMUIConfigurationTemplate"] && [class conformsToProtocol:protocol]) {
+            if ([class instancesRespondToSelector:@selector(shouldApplyTemplateAutomatically)]) {
+                id<QMUIConfigurationTemplateProtocol> template = [[class alloc] init];
+                if ([template shouldApplyTemplateAutomatically]) {
+                    QMUI_hasAppliedInitialTemplate = YES;
+                    [template applyConfigurationTemplate];
+                    _active = YES;// 标志配置表已生效
+                    // 只应用第一个 shouldApplyTemplateAutomatically 的主题
+                    // Only apply the first template returned
+                    break;
                 }
             }
         }
-        free(classes);
     }
     
     if (IS_DEBUG && self.sendAnalyticsToQMUITeam) {
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidFinishLaunchingNotification object:nil queue:[NSOperationQueue new] usingBlock:^(NSNotification * _Nonnull note) {
-            [self sendAnalytics];
+            // 这里根据是否能成功获取到 classesref 来统计信息，以供后续确认对 classesref 为 nil 的保护是否真的必要
+            [self sendAnalyticsWithQuery:classes ? @"findByObjc=true" : nil];
         }];
     }
+    
+    if (classes) free(classes);
     
     QMUI_hasAppliedInitialTemplate = YES;
 }
 
-- (void)sendAnalytics {
+- (void)sendAnalyticsWithQuery:(NSString *)query {
     NSString *identifier = [NSBundle mainBundle].bundleIdentifier.qmui_stringByEncodingUserInputQuery;
     NSString *displayName = ((NSString *)([NSBundle mainBundle].infoDictionary[@"CFBundleDisplayName"] ?: [NSBundle mainBundle].infoDictionary[@"CFBundleName"])).qmui_stringByEncodingUserInputQuery;
     NSString *QMUIVersion = QMUI_VERSION.qmui_stringByEncodingUserInputQuery;// 如果不以 framework 方式引入 QMUI 的话，是无法通过 CFBundleShortVersionString 获取到 QMUI 所在的 bundle 的版本号的，所以这里改为用脚本生成的变量来获取
-    NSString *appInfo = [NSString stringWithFormat:@"appId=%@&appName=%@&version=%@&platform=iOS", identifier, displayName, QMUIVersion];
+    NSString *queryString = [NSString stringWithFormat:@"appId=%@&appName=%@&version=%@&platform=iOS", identifier, displayName, QMUIVersion];
+    if (query.length > 0) queryString = [NSString stringWithFormat:@"%@&%@", queryString, query];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://qmuiteam.com/analytics/usageReport"]];
     request.HTTPMethod = @"POST";
-    request.HTTPBody = [appInfo dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody = [queryString dataUsingEncoding:NSUTF8StringEncoding];
     NSURLSession *session = [NSURLSession sharedSession];
     [[session dataTaskWithRequest:request] resume];
 }
@@ -243,17 +249,19 @@ static BOOL QMUI_hasAppliedInitialTemplate;
     
     #pragma mark - UIWindowLevel
     self.windowLevelQMUIAlertView = UIWindowLevelAlert - 4.0;
+    self.windowLevelQMUIConsole = 1;
     
     #pragma mark - QMUILog
     self.shouldPrintDefaultLog = YES;
     self.shouldPrintInfoLog = YES;
     self.shouldPrintWarnLog = YES;
+    self.shouldPrintQMUIWarnLogToConsole = IS_DEBUG;
     
     #pragma mark - Others
     
     self.supportedOrientationMask = UIInterfaceOrientationMaskAll;
     self.preventConcurrentNavigationControllerTransitions = YES;
-    self.shouldPrintQMUIWarnLogToConsole = IS_DEBUG;
+    self.shouldFixTabBarSafeAreaInsetsBug = YES;
     self.sendAnalyticsToQMUITeam = YES;
 }
 
@@ -305,20 +313,19 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 }
 
 - (void)configureNavBarShadowImage {
-    UIImage *shadowImage = nil;
-    if (self.navBarShadowImageColor) {
-        shadowImage = self.navBarShadowImage;
+    UIImage *shadowImage = self.navBarShadowImage;
+    if (shadowImage || self.navBarShadowImageColor) {
         if (shadowImage) {
-            if (shadowImage.renderingMode != UIImageRenderingModeAlwaysOriginal) {
+            if (self.navBarShadowImageColor && shadowImage.renderingMode != UIImageRenderingModeAlwaysOriginal) {
                 shadowImage = [shadowImage qmui_imageWithTintColor:self.navBarShadowImageColor];
             }
         } else {
             shadowImage = [UIImage qmui_imageWithColor:self.navBarShadowImageColor size:CGSizeMake(4, PixelOne) cornerRadius:0];
         }
+        
+        // 反向更新 NavBarShadowImage，以保证业务代码直接使用 NavBarShadowImage 宏能得到正确的图片
+        _navBarShadowImage = shadowImage;
     }
-    
-    // 反向更新 NavBarShadowImage，以保证业务代码直接使用 NavBarShadowImage 宏能得到正确的图片
-    _navBarShadowImage = shadowImage;
     
     UINavigationBar.appearance.shadowImage = shadowImage;
     [self.appearanceUpdatingNavigationControllers enumerateObjectsUsingBlock:^(UINavigationController * _Nonnull navigationController,NSUInteger idx, BOOL * _Nonnull stop) {
@@ -555,6 +562,7 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarBackgroundImage:(UIImage *)tabBarBackgroundImage {
     _tabBarBackgroundImage = tabBarBackgroundImage;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
         self.tabBarAppearance.backgroundImage = tabBarBackgroundImage;
@@ -572,6 +580,7 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarShadowImageColor:(UIColor *)tabBarShadowImageColor {
     _tabBarShadowImageColor = tabBarShadowImageColor;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
         self.tabBarAppearance.shadowColor = tabBarShadowImageColor;
@@ -590,11 +599,14 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarItemTitleFont:(UIFont *)tabBarItemTitleFont {
     _tabBarItemTitleFont = tabBarItemTitleFont;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
-        NSMutableDictionary<NSAttributedStringKey, id> *attributes = self.tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes.mutableCopy;
-        attributes[NSFontAttributeName] = tabBarItemTitleFont;
-        self.tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = attributes.copy;
+        [self.tabBarAppearance qmui_applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nonnull itemAppearance) {
+            NSMutableDictionary<NSAttributedStringKey, id> *attributes = itemAppearance.normal.titleTextAttributes.mutableCopy;
+            attributes[NSFontAttributeName] = tabBarItemTitleFont;
+            itemAppearance.normal.titleTextAttributes = attributes.copy;
+        }];
         [self updateTabBarAppearance];
     } else {
 #endif
@@ -615,18 +627,19 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarItemTitleColor:(UIColor *)tabBarItemTitleColor {
     _tabBarItemTitleColor = tabBarItemTitleColor;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
-        NSMutableDictionary<NSAttributedStringKey, id> *attributes = self.tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes.mutableCopy;
-        attributes[NSForegroundColorAttributeName] = tabBarItemTitleColor;
-        self.tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = attributes.copy;
+        [self.tabBarAppearance qmui_applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nonnull itemAppearance) {
+            NSMutableDictionary<NSAttributedStringKey, id> *attributes = itemAppearance.normal.titleTextAttributes.mutableCopy;
+            attributes[NSForegroundColorAttributeName] = tabBarItemTitleColor;
+            itemAppearance.normal.titleTextAttributes = attributes.copy;
+        }];
         [self updateTabBarAppearance];
     } else {
 #endif
         NSMutableDictionary<NSString *, id> *textAttributes = [[NSMutableDictionary alloc] initWithDictionary:[[UITabBarItem appearance] titleTextAttributesForState:UIControlStateNormal]];
-        if (_tabBarItemTitleColor) {
-            textAttributes[NSForegroundColorAttributeName] = _tabBarItemTitleColor;
-        }
+        textAttributes[NSForegroundColorAttributeName] = _tabBarItemTitleColor;
         [[UITabBarItem appearance] setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
         [self.appearanceUpdatingTabBarControllers enumerateObjectsUsingBlock:^(UITabBarController * _Nonnull tabBarController, NSUInteger idx, BOOL * _Nonnull stop) {
             [tabBarController.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -640,18 +653,19 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarItemTitleColorSelected:(UIColor *)tabBarItemTitleColorSelected {
     _tabBarItemTitleColorSelected = tabBarItemTitleColorSelected;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
-        NSMutableDictionary<NSAttributedStringKey, id> *attributes = self.tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes.mutableCopy;
-        attributes[NSForegroundColorAttributeName] = tabBarItemTitleColorSelected;
-        self.tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = attributes.copy;
+        [self.tabBarAppearance qmui_applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nonnull itemAppearance) {
+            NSMutableDictionary<NSAttributedStringKey, id> *attributes = itemAppearance.selected.titleTextAttributes.mutableCopy;
+            attributes[NSForegroundColorAttributeName] = tabBarItemTitleColorSelected;
+            itemAppearance.selected.titleTextAttributes = attributes.copy;
+        }];
         [self updateTabBarAppearance];
     } else {
 #endif
         NSMutableDictionary<NSString *, id> *textAttributes = [[NSMutableDictionary alloc] initWithDictionary:[[UITabBarItem appearance] titleTextAttributesForState:UIControlStateSelected]];
-        if (_tabBarItemTitleColorSelected) {
-            textAttributes[NSForegroundColorAttributeName] = _tabBarItemTitleColorSelected;
-        }
+        textAttributes[NSForegroundColorAttributeName] = _tabBarItemTitleColorSelected;
         [[UITabBarItem appearance] setTitleTextAttributes:textAttributes forState:UIControlStateSelected];
         [self.appearanceUpdatingTabBarControllers enumerateObjectsUsingBlock:^(UITabBarController * _Nonnull tabBarController, NSUInteger idx, BOOL * _Nonnull stop) {
             [tabBarController.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -665,17 +679,20 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarItemImageColor:(UIColor *)tabBarItemImageColor {
     _tabBarItemImageColor = tabBarItemImageColor;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
-        self.tabBarAppearance.stackedLayoutAppearance.normal.iconColor = tabBarItemImageColor;
+        [self.tabBarAppearance qmui_applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nonnull itemAppearance) {
+            itemAppearance.normal.iconColor = tabBarItemImageColor;
+        }];
         [self updateTabBarAppearance];
     } else {
 #endif
     [self.appearanceUpdatingTabBarControllers enumerateObjectsUsingBlock:^(UITabBarController * _Nonnull tabBarController, NSUInteger idx, BOOL * _Nonnull stop) {
         [tabBarController.tabBar.items enumerateObjectsUsingBlock:^(UITabBarItem * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (item == tabBarController.tabBar.selectedItem) return;
-            if (item.image.renderingMode == UIImageRenderingModeAlwaysOriginal) return;
-            item.image = [item.image qmui_imageWithTintColor:tabBarItemImageColor];
+            // 不需要过滤，否则选中时的那个 item 未选中时的图片无法被更新
+//            if (item == tabBarController.tabBar.selectedItem) return;
+            [item qmui_updateTintColorForiOS12AndEarlier:tabBarItemImageColor];
         }];
     }];
 #ifdef IOS13_SDK_ALLOWED
@@ -685,9 +702,12 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (void)setTabBarItemImageColorSelected:(UIColor *)tabBarItemImageColorSelected {
     _tabBarItemImageColorSelected = tabBarItemImageColorSelected;
+    
 #ifdef IOS13_SDK_ALLOWED
     if (@available(iOS 13.0, *)) {
-        self.tabBarAppearance.stackedLayoutAppearance.selected.iconColor = tabBarItemImageColorSelected;
+        [self.tabBarAppearance qmui_applyItemAppearanceWithBlock:^(UITabBarItemAppearance * _Nonnull itemAppearance) {
+            itemAppearance.selected.iconColor = tabBarItemImageColorSelected;
+        }];
         [self updateTabBarAppearance];
     } else {
 #endif
@@ -719,12 +739,66 @@ static BOOL QMUI_hasAppliedInitialTemplate;
 
 - (NSArray <UIViewController *>*)appearanceUpdatingViewControllersOfClass:(Class)class {
     NSMutableArray *viewControllers = [NSMutableArray array];
-    [[UIApplication sharedApplication].windows enumerateObjectsUsingBlock:^(__kindof UIWindow * _Nonnull window, NSUInteger idx, BOOL * _Nonnull stop) {
+    [UIApplication.sharedApplication.windows enumerateObjectsUsingBlock:^(__kindof UIWindow * _Nonnull window, NSUInteger idx, BOOL * _Nonnull stop) {
         if (window.rootViewController) {
             [viewControllers addObjectsFromArray:[window.rootViewController qmui_existingViewControllersOfClass:class]];
         }
     }];
     return viewControllers;
+}
+
+@end
+
+const NSInteger QMUIImageOriginalRenderingModeDefault = -1;
+
+@interface UIImage (QMUIConfiguration)
+
+@property(nonatomic, assign) UIImageRenderingMode qmui_originalRenderingMode;
+@property(nonatomic, assign) BOOL qimgconf_hasSetOriginalRenderingMode;
+@end
+
+@implementation UITabBarItem (QMUIConfiguration)
+
+// iOS 12 及以下的 UITabBarItem.image 有个问题是，如果不强制指定 original，系统总是会以 template 的方式渲染未选中时的图片，并且颜色也是系统默认的灰色，无法改变
+// 为了让未选中时的图片颜色能跟随配置表变化，这里对 renderingMode 为非 Original 的图片会强制转换成配置表的颜色，并将 renderMode 修改为 AlwaysOriginal 以保证图片颜色不会被系统覆盖
+// 相关 issue：
+// https://github.com/Tencent/QMUI_iOS/issues/736
+// https://github.com/Tencent/QMUI_iOS/issues/813
+- (void)qmui_updateTintColorForiOS12AndEarlier:(UIColor *)tintColor {
+    if (@available(iOS 13.0, *)) return;
+    if (!tintColor) return;
+    
+    UIImage *image = self.image;
+    UIImageRenderingMode renderingMode = image.renderingMode;
+    UIImageRenderingMode originalRenderingMode = image.qmui_originalRenderingMode;
+    if (originalRenderingMode == QMUIImageOriginalRenderingModeDefault) {
+        if (renderingMode != UIImageRenderingModeAlwaysOriginal) {
+            image = [[image qmui_imageWithTintColor:TabBarItemImageColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            image.qmui_originalRenderingMode = renderingMode;
+            self.image = image;
+        }
+    } else if (originalRenderingMode != UIImageRenderingModeAlwaysOriginal && renderingMode == UIImageRenderingModeAlwaysOriginal) {
+        image = [[image qmui_imageWithTintColor:TabBarItemImageColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        image.qmui_originalRenderingMode = originalRenderingMode;
+        self.image = image;
+    }
+}
+
+@end
+
+@implementation UIImage (QMUIConfiguration)
+
+QMUISynthesizeBOOLProperty(qimgconf_hasSetOriginalRenderingMode, setQimgconf_hasSetOriginalRenderingMode)
+
+static char kAssociatedObjectKey_originalRenderingMode;
+- (void)setQmui_originalRenderingMode:(UIImageRenderingMode)qmui_originalRenderingMode {
+    self.qimgconf_hasSetOriginalRenderingMode = YES;
+    objc_setAssociatedObject(self, &kAssociatedObjectKey_originalRenderingMode, @(qmui_originalRenderingMode), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIImageRenderingMode)qmui_originalRenderingMode {
+    if (!self.qimgconf_hasSetOriginalRenderingMode) return QMUIImageOriginalRenderingModeDefault;
+    return [((NSNumber *)objc_getAssociatedObject(self, &kAssociatedObjectKey_originalRenderingMode)) integerValue];
 }
 
 @end

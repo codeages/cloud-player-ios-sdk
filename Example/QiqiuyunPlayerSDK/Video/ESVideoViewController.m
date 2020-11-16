@@ -115,6 +115,7 @@ _lookupResponder(UIView *view, Class cls)
     [self resetCoverView];
     [self startPlay];
 //    self.navigationController.navigationBar.translucent = YES;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showWatermark)];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -549,7 +550,9 @@ _lookupResponder(UIView *view, Class cls)
 - (IBAction)showWatermark {
     NSString *path = [[NSBundle mainBundle] pathForResource:@"edusoho-logo" ofType:@"png"];
     NSURL *url = [NSURL URLWithString:@"https://edusoho.cn/bundles/topxiaweb/v2/img/logo.png?v3.20.4"];
-    [self.mediaPlayerView.videoPlayerContoller showWatermarkWithImageURL:url position:ESCloudPlayerWatermarkPositionCenterLeft];
+    ESWatermarkData *watermark = [[ESWatermarkData alloc]initWithURL:url];
+    watermark.position = ESCloudPlayerWatermarkPositionCenter;
+    [self.mediaPlayerView.videoPlayerContoller setWatermarkData:watermark];
 }
 
 @end

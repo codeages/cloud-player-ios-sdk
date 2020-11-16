@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ESCloudPlayerDefines.h"
+#import "ESWatermarkData.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,8 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 视频水印
 /// @param imageURL 水印图片URL
-/// @param position 水印位置 默认 QiqiuyunPlayerWatermarkPositionBottomLeft
+/// @param position 水印位置 默认 ESCloudPlayerWatermarkPosition
 - (void)showWatermarkWithImageURL:(NSURL *)imageURL position:(ESCloudPlayerWatermarkPosition)position;
+
+- (void)setWatermarkData:(ESWatermarkData *)watermarkData;
+
 @end
 
 NS_ASSUME_NONNULL_END

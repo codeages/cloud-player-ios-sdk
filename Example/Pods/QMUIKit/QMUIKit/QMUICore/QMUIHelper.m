@@ -1,10 +1,10 @@
-/*****
+/**
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- *****/
+ */
 
 //
 //  QMUIHelper.m
@@ -24,50 +24,19 @@
 #import <math.h>
 #import <sys/utsname.h>
 
-NSString *const QMUIResourcesMainBundleName = @"QMUIResources.bundle";
+NSString *const kQMUIResourcesBundleName = @"QMUIResources";
 
 @implementation QMUIHelper (Bundle)
 
-+ (NSBundle *)resourcesBundle {
-    return [QMUIHelper resourcesBundleWithName:QMUIResourcesMainBundleName];
-}
-
-+ (NSBundle *)resourcesBundleWithName:(NSString *)bundleName {
-    NSBundle *bundle = [NSBundle bundleWithPath: [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:bundleName]];
-    if (!bundle) {
-        // 动态framework的bundle资源是打包在framework里面的，所以无法通过mainBundle拿到资源，只能通过其他方法来获取bundle资源。
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:[self class]];
-        NSDictionary *bundleData = [self parseBundleName:bundleName];
-        if (bundleData) {
-            bundle = [NSBundle bundleWithPath:[frameworkBundle pathForResource:[bundleData objectForKey:@"name"] ofType:[bundleData objectForKey:@"type"]]];
-        }
-    }
-    return bundle;
-}
-
 + (UIImage *)imageWithName:(NSString *)name {
-    NSBundle *bundle = [QMUIHelper resourcesBundle];
-    return [QMUIHelper imageInBundle:bundle withName:name];
-}
-
-+ (UIImage *)imageInBundle:(NSBundle *)bundle withName:(NSString *)name {
-    if (bundle && name) {
-        if ([UIImage respondsToSelector:@selector(imageNamed:inBundle:compatibleWithTraitCollection:)]) {
-            return [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
-        } else {
-            NSString *imagePath = [[bundle resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", name]];
-            return [UIImage imageWithContentsOfFile:imagePath];
-        }
+    static NSBundle *resourceBundle = nil;
+    if (!resourceBundle) {
+        NSBundle *mainBundle = [NSBundle bundleForClass:self];
+        NSString *resourcePath = [mainBundle pathForResource:kQMUIResourcesBundleName ofType:@"bundle"];
+        resourceBundle = [NSBundle bundleWithPath:resourcePath] ?: mainBundle;
     }
-    return nil;
-}
-
-+ (NSDictionary *)parseBundleName:(NSString *)bundleName {
-    NSArray *bundleData = [bundleName componentsSeparatedByString:@"."];
-    if (bundleData.count == 2) {
-        return @{@"name":bundleData[0], @"type":bundleData[1]};
-    }
-    return nil;
+    UIImage *image = [UIImage imageNamed:name inBundle:resourceBundle compatibleWithTraitCollection:nil];
+    return image;
 }
 
 @end
@@ -78,7 +47,7 @@ NSString *const QMUIResourcesMainBundleName = @"QMUIResources.bundle";
 + (NSNumber *)preferredContentSizeLevel {
     NSNumber *index = nil;
     if ([UIApplication instancesRespondToSelector:@selector(preferredContentSizeCategory)]) {
-        NSString *contentSizeCategory = [[UIApplication sharedApplication] preferredContentSizeCategory];
+        NSString *contentSizeCategory = UIApplication.sharedApplication.preferredContentSizeCategory;
         if ([contentSizeCategory isEqualToString:UIContentSizeCategoryExtraSmall]) {
             index = [NSNumber numberWithInt:0];
         } else if ([contentSizeCategory isEqualToString:UIContentSizeCategorySmall]) {
@@ -217,28 +186,6 @@ QMUISynthesizeCGFloatProperty(lastKeyboardHeight, setLastKeyboardHeight)
     [[AVAudioSession sharedInstance] setCategory:category error:nil];
 }
 
-+ (UInt32)categoryForLowVersionWithCategory:(NSString *)category {
-    if ([category isEqualToString:AVAudioSessionCategoryAmbient]) {
-        return kAudioSessionCategory_AmbientSound;
-    }
-    if ([category isEqualToString:AVAudioSessionCategorySoloAmbient]) {
-        return kAudioSessionCategory_SoloAmbientSound;
-    }
-    if ([category isEqualToString:AVAudioSessionCategoryPlayback]) {
-        return kAudioSessionCategory_MediaPlayback;
-    }
-    if ([category isEqualToString:AVAudioSessionCategoryRecord]) {
-        return kAudioSessionCategory_RecordAudio;
-    }
-    if ([category isEqualToString:AVAudioSessionCategoryPlayAndRecord]) {
-        return kAudioSessionCategory_PlayAndRecord;
-    }
-    if ([category isEqualToString:AVAudioSessionCategoryAudioProcessing]) {
-        return kAudioSessionCategory_AudioProcessing;
-    }
-    return kAudioSessionCategory_AmbientSound;
-}
-
 @end
 
 
@@ -336,6 +283,7 @@ static CGFloat pixelOne = -1.0f;
             @"iPhone12,1" : @"iPhone 11",
             @"iPhone12,3" : @"iPhone 11 Pro",
             @"iPhone12,5" : @"iPhone 11 Pro Max",
+            @"iPhone12,8" : @"iPhone SE (2nd generation)",
 
             @"iPad1,1" : @"iPad 1",
             @"iPad2,1" : @"iPad 2 (WiFi)",
@@ -386,6 +334,10 @@ static CGFloat pixelOne = -1.0f;
             @"iPad8,6" : @"iPad Pro (12.9 inch, 3rd generation)",
             @"iPad8,7" : @"iPad Pro (12.9 inch, 3rd generation)",
             @"iPad8,8" : @"iPad Pro (12.9 inch, 3rd generation)",
+            @"iPad8,9" : @"iPad Pro (11 inch, 2nd generation)",
+            @"iPad8,10" : @"iPad Pro (11 inch, 2nd generation)",
+            @"iPad8,11" : @"iPad Pro (12.9 inch, 4th generation)",
+            @"iPad8,12" : @"iPad Pro (12.9 inch, 4th generation)",
             @"iPad11,1" : @"iPad mini (5th generation)",
             @"iPad11,2" : @"iPad mini (5th generation)",
             @"iPad11,3" : @"iPad Air (3rd generation)",
@@ -617,7 +569,7 @@ static CGFloat preferredLayoutWidth = -1;
                                         @([self screenSizeFor58Inch].width),
                                         @([self screenSizeFor40Inch].width)];
         preferredLayoutWidth = SCREEN_WIDTH;
-        UIWindow *window = [UIApplication sharedApplication].delegate.window ?: [[UIWindow alloc] init];// iOS 9 及以上的系统，新 init 出来的 window 自动被设置为当前 App 的宽度
+        UIWindow *window = UIApplication.sharedApplication.delegate.window ?: [[UIWindow alloc] init];// iOS 9 及以上的系统，新 init 出来的 window 自动被设置为当前 App 的宽度
         CGFloat windowWidth = CGRectGetWidth(window.bounds);
         for (NSInteger i = 0; i < widths.count; i++) {
             if (windowWidth <= widths[i].qmui_CGFloatValue) {
@@ -638,7 +590,7 @@ static CGFloat preferredLayoutWidth = -1;
         return UIEdgeInsetsMake(0, 0, 20, 0);
     }
     
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    UIInterfaceOrientation orientation = UIApplication.sharedApplication.statusBarOrientation;
     
     switch (orientation) {
         case UIInterfaceOrientationPortrait:
@@ -707,13 +659,13 @@ static NSInteger isHighPerformanceDevice = -1;
 @implementation QMUIHelper (UIApplication)
 
 + (void)dimmedApplicationWindow {
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIWindow *window = UIApplication.sharedApplication.delegate.window;
     window.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
     [window tintColorDidChange];
 }
 
 + (void)resetDimmedApplicationWindow {
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    UIWindow *window = UIApplication.sharedApplication.delegate.window;
     window.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     [window tintColorDidChange];
 }

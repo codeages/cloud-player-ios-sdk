@@ -6,7 +6,7 @@ platform :ios, '9.0'
 
 target 'QiqiuyunPlayerSDK_Example' do
   pod 'ESCloudPlayerSDK', :path => '../'
-  pod 'QMUIKit/QMUIComponents', '=4.0.0'
+  pod 'QMUIKit/QMUIComponents'
   pod 'JGProgressHUD'
   pod "JWT"
   pod 'MMLayout'

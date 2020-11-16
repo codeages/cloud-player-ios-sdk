@@ -1,10 +1,10 @@
-/*****
+/**
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- *****/
+ */
 
 //
 //  UISearchBar+QMUI.m
@@ -22,6 +22,7 @@
 
 QMUISynthesizeBOOLProperty(qmui_usedAsTableHeaderView, setQmui_usedAsTableHeaderView)
 QMUISynthesizeUIEdgeInsetsProperty(qmui_textFieldMargins, setQmui_textFieldMargins)
+QMUISynthesizeBOOLProperty(qmui_fixMaskViewLayoutBugAutomatically, setQmui_fixMaskViewLayoutBugAutomatically)
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -35,16 +36,29 @@ QMUISynthesizeUIEdgeInsetsProperty(qmui_textFieldMargins, setQmui_textFieldMargi
         
         ExtendImplementationOfVoidMethodWithSingleArgument([UISearchBar class], @selector(setPlaceholder:), NSString *, (^(UISearchBar *selfObject, NSString *placeholder) {
             if (selfObject.qmui_placeholderColor || selfObject.qmui_font) {
-                NSMutableDictionary<NSString *, id> *attributes = [[NSMutableDictionary alloc] init];
+                NSMutableAttributedString *string = selfObject.qmui_textField.attributedPlaceholder.mutableCopy;
                 if (selfObject.qmui_placeholderColor) {
-                    attributes[NSForegroundColorAttributeName] = selfObject.qmui_placeholderColor;
+                    [string addAttribute:NSForegroundColorAttributeName value:selfObject.qmui_placeholderColor range:NSMakeRange(0, string.length)];
                 }
                 if (selfObject.qmui_font) {
-                    attributes[NSFontAttributeName] = selfObject.qmui_font;
+                    [string addAttribute:NSFontAttributeName value:selfObject.qmui_font range:NSMakeRange(0, string.length)];
                 }
-                selfObject.qmui_textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
+                // 默认移除文字阴影
+                [string removeAttribute:NSShadowAttributeName range:NSMakeRange(0, string.length)];
+                selfObject.qmui_textField.attributedPlaceholder = string.copy;
             }
         }));
+        
+        // iOS 13 下，UISearchBar 内的 UITextField 的 _placeholderLabel 会在 didMoveToWindow 时被重新设置 textColor，导致我们在 searchBar 添加到界面之前设置的 placeholderColor 失效，所以在这里重新设置一遍
+        // https://github.com/Tencent/QMUI_iOS/issues/830
+        if (@available(iOS 13.0, *)) {
+            ExtendImplementationOfVoidMethodWithoutArguments([UISearchBar class], @selector(didMoveToWindow), ^(UISearchBar *selfObject) {
+                if (selfObject.qmui_placeholderColor) {
+                    selfObject.placeholder = selfObject.placeholder;
+                }
+            });
+        }
+
         if (@available(iOS 13.0, *)) {
             // -[_UISearchBarLayout applyLayout] 是 iOS 13 系统新增的方法，该方法可能会在 -[UISearchBar layoutSubviews] 后调用，作进一步的布局调整。
             Class _UISearchBarLayoutClass = NSClassFromString([NSString stringWithFormat:@"_%@%@",@"UISearchBar", @"Layout"]);
@@ -124,8 +138,6 @@ QMUISynthesizeUIEdgeInsetsProperty(qmui_textFieldMargins, setQmui_textFieldMargi
         OverrideImplementation([UISearchBar class], @selector(setFrame:), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
             return ^(UISearchBar *selfObject, CGRect frame) {
                 
-                if (QMUICMIActivated) selfObject.keyboardAppearance = KeyboardAppearance;
-                
                 frame = [selfObject qmui_adjustedSearchBarFrameByOriginalFrame:frame];
                 
                 // call super
@@ -134,6 +146,40 @@ QMUISynthesizeUIEdgeInsetsProperty(qmui_textFieldMargins, setQmui_textFieldMargi
                 originSelectorIMP(selfObject, originCMD, frame);
                 
             };
+        });
+        
+        // [UIKit Bug] 当 UISearchController.searchBar 作为 tableHeaderView 使用时，顶部可能出现 1px 的间隙导致露出背景色
+        // https://github.com/Tencent/QMUI_iOS/issues/950
+        OverrideImplementation([UISearchBar class], NSSelectorFromString(@"_setMaskBounds:"), ^id(__unsafe_unretained Class originClass, SEL originCMD, IMP (^originalIMPProvider)(void)) {
+            return ^(UISearchBar *selfObject, CGRect firstArgv) {
+                
+                BOOL shouldFixBug = selfObject.qmui_fixMaskViewLayoutBugAutomatically
+                && selfObject.qmui_searchController
+                && [selfObject.superview isKindOfClass:UITableView.class]
+                && ((UITableView *)selfObject.superview).tableHeaderView == selfObject;
+                if (shouldFixBug) {
+                    firstArgv = CGRectMake(CGRectGetMinX(firstArgv), CGRectGetMinY(firstArgv) - PixelOne, CGRectGetWidth(firstArgv), CGRectGetHeight(firstArgv) + PixelOne);
+                }
+                
+                // call super
+                void (*originSelectorIMP)(id, SEL, CGRect);
+                originSelectorIMP = (void (*)(id, SEL, CGRect))originalIMPProvider();
+                originSelectorIMP(selfObject, originCMD, firstArgv);
+            };
+        });
+        
+        ExtendImplementationOfNonVoidMethodWithSingleArgument([UISearchBar class], @selector(initWithFrame:), CGRect, UISearchBar *, ^UISearchBar *(UISearchBar *selfObject, CGRect firstArgv, UISearchBar *originReturnValue) {
+            if (QMUICMIActivated && ShouldFixSearchBarMaskViewLayoutBug) {
+                originReturnValue.qmui_fixMaskViewLayoutBugAutomatically = YES;
+            }
+            return originReturnValue;
+        });
+        
+        ExtendImplementationOfNonVoidMethodWithSingleArgument([UISearchBar class], @selector(initWithCoder:), NSCoder *, UISearchBar *, ^UISearchBar *(UISearchBar *selfObject, NSCoder *firstArgv, UISearchBar *originReturnValue) {
+            if (QMUICMIActivated && ShouldFixSearchBarMaskViewLayoutBug) {
+                originReturnValue.qmui_fixMaskViewLayoutBugAutomatically = YES;
+            }
+            return originReturnValue;
         });
     });
 }
@@ -225,22 +271,13 @@ static char kAssociatedObjectKey_cancelButtonFont;
     }
     
     // 搜索框的字号及 placeholder 的字号
-    UIFont *font = SearchBarFont;
-    if (font) {
-        self.qmui_font = font;
-    }
+    self.qmui_font = SearchBarFont;
 
     // 搜索框的文字颜色
-    UIColor *textColor = SearchBarTextColor;
-    if (textColor) {
-        self.qmui_textColor = textColor;
-    }
+    self.qmui_textColor = SearchBarTextColor;
 
     // placeholder 的文字颜色
-    UIColor *placeholderColor = SearchBarPlaceholderColor;
-    if (placeholderColor) {
-        self.qmui_placeholderColor = placeholderColor;
-    }
+    self.qmui_placeholderColor = SearchBarPlaceholderColor;
 
     self.placeholder = @"搜索";
     self.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -287,7 +324,7 @@ static char kAssociatedObjectKey_cancelButtonFont;
 }
 
 + (UIImage *)qmui_generateTextFieldBackgroundImageWithColor:(UIColor *)color {
-    // 背景图片的高度会决定输入框的高度，在 iOS 11 及以上，系统默认高度是 36，iOS 10 及以下的高度是 28
+    // 背景图片的高度会决定输入框的高度，在 iOS 11 及以上，系统默认高度是 36，iOS 10 及以下的高度是 28 的搜索输入框的高度计算:QMUIKit/UIKitExtensions/UISearchBar+QMUI.m
     // 至于圆角，输入框会在 UIView 层面控制，背景图里无需处理
     return [[UIImage qmui_imageWithColor:color size:self.qmui_textFieldDefaultSize cornerRadius:0] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
 }
@@ -379,7 +416,13 @@ static char kAssociatedObjectKey_cancelButtonFont;
 - (CGRect)qmui_adjustedSearchTextFieldFrameByOriginalFrame:(CGRect)frame {
     if (self.qmui_shouldFixLayoutWhenUsedAsTableHeaderView) {
         if (self.qmui_searchController.isBeingPresented) {
-            CGFloat visibleHeight = [UIApplication sharedApplication].statusBarHidden ? 56 : 50;
+            BOOL statusBarHidden = NO;
+            if (@available(iOS 13.0, *)) {
+                statusBarHidden = self.window.windowScene.statusBarManager.statusBarHidden;
+            } else {
+                statusBarHidden = UIApplication.sharedApplication.statusBarHidden;
+            }
+            CGFloat visibleHeight = statusBarHidden ? 56 : 50;
             frame.origin.y = (visibleHeight - self.qmui_textField.qmui_height) / 2;
         } else if (self.qmui_searchController.isBeingDismissed) {
             frame.origin.y = (56 - self.qmui_textField.qmui_height) / 2;

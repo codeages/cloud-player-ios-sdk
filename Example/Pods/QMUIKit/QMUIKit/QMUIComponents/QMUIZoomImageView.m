@@ -1,10 +1,10 @@
-/*****
+/**
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- *****/
+ */
 
 //
 //  QMUIZoomImageView.m
@@ -258,7 +258,12 @@ static NSUInteger const kTagForCenteredPlayButton = 1;
 }
 
 - (CGFloat)minimumZoomScale {
-    if (!self.image && !self.livePhoto && !self.videoPlayerItem) {
+    BOOL isLivePhoto = NO;
+    if (@available(iOS 9.1, *)) {
+        isLivePhoto = !!self.livePhoto;
+    }
+
+    if (!self.image && !isLivePhoto && !self.videoPlayerItem) {
         return 1;
     }
     
@@ -266,8 +271,10 @@ static NSUInteger const kTagForCenteredPlayButton = 1;
     CGSize mediaSize = CGSizeZero;
     if (self.image) {
         mediaSize = self.image.size;
-    } else if (self.livePhoto) {
-        mediaSize = self.livePhoto.size;
+    } else if (isLivePhoto) {
+        if (@available(iOS 9.1, *)) {
+            mediaSize = self.livePhoto.size;
+        }
     } else if (self.videoPlayerItem) {
         mediaSize = self.videoSize;
     }
@@ -391,9 +398,13 @@ static NSUInteger const kTagForCenteredPlayButton = 1;
 
 - (BOOL)enabledZoomImageView {
     BOOL enabledZoom = YES;
+    BOOL isLivePhoto = NO;
+    if (@available(iOS 9.1, *)) {
+        isLivePhoto = !!self.livePhoto;
+    }
     if ([self.delegate respondsToSelector:@selector(enabledZoomViewInZoomImageView:)]) {
         enabledZoom = [self.delegate enabledZoomViewInZoomImageView:self];
-    } else if (!self.image && !self.livePhoto && !self.videoPlayerItem) {
+    } else if (!self.image && !isLivePhoto && !self.videoPlayerItem) {
         enabledZoom = NO;
     }
     return enabledZoom;

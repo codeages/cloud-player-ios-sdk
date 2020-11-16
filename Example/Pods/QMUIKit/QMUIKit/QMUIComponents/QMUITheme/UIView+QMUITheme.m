@@ -1,10 +1,10 @@
-/*****
+/**
  * Tencent is pleased to support the open source community by making QMUI_iOS available.
- * Copyright (C) 2016-2019 THL A29 Limited, a Tencent company. All rights reserved.
+ * Copyright (C) 2016-2020 THL A29 Limited, a Tencent company. All rights reserved.
  * Licensed under the MIT License (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://opensource.org/licenses/MIT
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
- *****/
+ */
 //
 //  UIView+QMUITheme.m
 //  QMUIKit
@@ -16,14 +16,19 @@
 #import "QMUICore.h"
 #import "UIView+QMUI.h"
 #import "UIColor+QMUI.h"
+#import "UIImage+QMUI.h"
 #import "UIImage+QMUITheme.h"
 #import "UIVisualEffect+QMUITheme.h"
 #import "QMUIThemeManagerCenter.h"
 #import "CALayer+QMUI.h"
 #import "QMUIThemeManager.h"
 #import "QMUIThemePrivate.h"
+#import "NSObject+QMUI.h"
+#import "UITextInputTraits+QMUI.h"
 
 @implementation UIView (QMUITheme)
+
+QMUISynthesizeIdCopyProperty(qmui_themeDidChangeBlock, setQmui_themeDidChangeBlock)
 
 + (void)load {
     static dispatch_once_t onceToken;
@@ -53,7 +58,6 @@
                 if (valueChanged) {
                     // UIView.qmui_currentThemeIdentifier 只是为了实现判断当前的 theme 是否有发生变化，所以可以构造成一个 string，但怎么避免每次 hidden 切换时都要遍历所有的 subviews？
                     [selfObject _qmui_themeDidChangeByManager:nil identifier:nil theme:nil shouldEnumeratorSubviews:YES];
-//                    selfObject.qmui_currentThemeIdentifier = QMUIThemeManager.sharedInstance.currentThemeIdentifier;
                 }
             };
         });
@@ -71,24 +75,24 @@
                 if (willShow) {
                     // 只设置 identifier 就可以了，内部自然会去同步更新 theme
                     [selfObject _qmui_themeDidChangeByManager:nil identifier:nil theme:nil shouldEnumeratorSubviews:YES];
-//                    selfObject.qmui_currentThemeIdentifier = QMUIThemeManager.sharedInstance.currentThemeIdentifier;
                 }
             };
         });
         
-        // 这几个 class 在 iOS 12 下都实现了自己的 didMoveToWindow 且没有调用 super，所以需要每个都替换一遍方法
+        // 这几个 class 实现了自己的 didMoveToWindow 且没有调用 super，所以需要每个都替换一遍方法
         NSArray<Class> *classes = @[UIView.class,
                                     UICollectionView.class,
                                     UITextField.class,
                                     UISearchBar.class,
                                     NSClassFromString(@"UITableViewLabel")];
+        if (NSClassFromString(@"WKWebView")) {
+            classes = [classes arrayByAddingObject:NSClassFromString(@"WKWebView")];
+        }
         [classes enumerateObjectsUsingBlock:^(Class  _Nonnull class, NSUInteger idx, BOOL * _Nonnull stop) {
             ExtendImplementationOfVoidMethodWithoutArguments(class, @selector(didMoveToWindow), ^(UIView *selfObject) {
-                // 只设置 identifier 就可以了，内部自然会去同步更新 theme
                 // enumerateSubviews 为 NO 是因为当某个 view 的 didMoveToWindow 被触发时，它的每个 subview 的 didMoveToWindow 也都会被触发，所以不需要遍历 subview 了
                 if (selfObject.window) {
                     [selfObject _qmui_themeDidChangeByManager:nil identifier:nil theme:nil shouldEnumeratorSubviews:NO];
-//                    [selfObject setQmui_currentThemeIdentifier:QMUIThemeManager.sharedInstance.currentThemeIdentifier enumerateSubviews:NO notify:YES syncTheme:YES];
                 }
             });
         }];
@@ -141,6 +145,19 @@
         BOOL isValidatedEffect = [value isKindOfClass:QMUIThemeVisualEffect.class] && (!manager || [((QMUIThemeVisualEffect *)value).managerName isEqual:manager.name]);
         BOOL isOtherObject = ![value isKindOfClass:UIColor.class] && ![value isKindOfClass:UIImage.class] && ![value isKindOfClass:UIVisualEffect.class];// 支持所有非 color、image、effect 的其他对象，例如 NSAttributedString
         if (isOtherObject || isValidatedColor || isValidatedImage || isValidatedEffect) {
+            
+            // 修复 iOS 12 及以下版本，QMUIThemeImage 在搭配 resizable 使用的情况下可能无法跟随主题刷新的 bug
+            // https://github.com/Tencent/QMUI_iOS/issues/971
+            if (@available(iOS 13.0, *)) {
+            } else {
+                if (isValidatedImage) {
+                    QMUIThemeImage *image = (QMUIThemeImage *)value;
+                    if (image.qmui_resizable) {
+                        value = image.copy;
+                    }
+                }
+            }
+            
             [self performSelector:setter withObject:value];
         }
         EndIgnorePerformSelectorLeaksWarning
@@ -148,12 +165,23 @@
     
     // 特殊的 view 特殊处理
     // iOS 10-11 里当 UILabel.attributedText 的文字颜色都相同时，也无法使用 setNeedsDisplay 刷新样式，但只要某个 range 颜色不同就没问题，iOS 9、12-13 也没问题，这个通过 UILabel (QMUIThemeCompatibility) 兼容。
+    // iOS 9-13，当 UITextField 没有聚焦时，不需要调用 setNeedsDisplay 系统都可以自动更新文字样式，但聚焦时调用 setNeedsDisplay 也无法更新样式，这里依赖了 UITextField (QMUIThemeCompatibility) 对 setNeedsDisplay 做的兼容实现了更新
     // 注意，iOS 11 及以下的 UITextView 直接调用 setNeedsDisplay 是无法刷新文字样式的，这里依赖了 UITextView (QMUIThemeCompatibility) 里通过 swizzle 实现了兼容，iOS 12 及以上没问题。
     static NSArray<Class> *needsDisplayClasses = nil;
-    if (!needsDisplayClasses) needsDisplayClasses = @[UILabel.class, UITextView.class];
+    if (!needsDisplayClasses) needsDisplayClasses = @[UILabel.class, UITextField.class, UITextView.class];
     [needsDisplayClasses enumerateObjectsUsingBlock:^(Class  _Nonnull class, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([self isKindOfClass:class]) [self setNeedsDisplay];
     }];
+    
+    // 输入框、搜索框的键盘跟随主题变化
+    if (QMUICMIActivated && [self conformsToProtocol:@protocol(UITextInputTraits)]) {
+        NSObject<UITextInputTraits> *input = (NSObject<UITextInputTraits> *)self;
+        if ([input respondsToSelector:@selector(keyboardAppearance)]) {
+            if (input.keyboardAppearance != KeyboardAppearance && !input.qmui_hasCustomizedKeyboardAppearance) {
+                input.keyboardAppearance = KeyboardAppearance;
+            }
+        }
+    }
     
     /** 这里去掉动画有 2 个原因：
      1. iOS 13 进入后台时会对 currentTraitCollection.userInterfaceStyle 做一次取反进行截图，以便在后台切换 Drak/Light 后能够更新 app 多任务缩略图，QMUI 响应了这个操作去调整取反后的 layer 的颜色，而在对 layer 设置属性的时候，如果包含了动画会导致截图不到最终的状态，这样会导致在后台切换 Drak/Light 后多任务缩略图无法及时更新。
@@ -162,6 +190,10 @@
     [CALayer qmui_performWithoutAnimation:^{
         [self.layer qmui_setNeedsUpdateDynamicStyle];
     }];
+    
+    if (self.qmui_themeDidChangeBlock) {
+        self.qmui_themeDidChangeBlock();
+    }
 }
 
 @end

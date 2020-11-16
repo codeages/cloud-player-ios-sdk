@@ -415,9 +415,9 @@
 			isa = PBXGroup;
 			children = (
 				EA78D1CF23BEEFC40054C956 /* ESVideoViewController.h */,
+				EA78D1E223BEEFC40054C956 /* ESVideoViewController.m */,
 				EA78D1D023BEEFC40054C956 /* ControlView */,
 				EA78D1DB23BEEFC40054C956 /* Rotation */,
-				EA78D1E223BEEFC40054C956 /* ESVideoViewController.m */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -550,7 +550,7 @@
 				ORGANIZATIONNAME = ayia;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = ZKQ4HP5426;
+						DevelopmentTeam = QJGAKLYF6Q;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -873,12 +873,13 @@
 			baseConfigurationReference = F605790FB8AE13A9B6184801 /* Pods-QiqiuyunPlayerSDK_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ZKQ4HP5426;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = QJGAKLYF6Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Prefix.pch";
 				INFOPLIST_FILE = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.edusoho.kuozhi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttaq.app;
 				PRODUCT_NAME = "气球云播放器";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
@@ -890,12 +891,13 @@
 			baseConfigurationReference = 2EAA8A900D325BB34EB83BB3 /* Pods-QiqiuyunPlayerSDK_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = ZKQ4HP5426;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = QJGAKLYF6Q;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Prefix.pch";
 				INFOPLIST_FILE = "QiqiuyunPlayerSDK/QiqiuyunPlayerSDK-Info.plist";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = com.edusoho.kuozhi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttaq.app;
 				PRODUCT_NAME = "气球云播放器";
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
